@@ -2,11 +2,12 @@
   "name": "business-cards-app",
   "version": "1.0.0",
   "description": "business cards app",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "start": "node .",
     "test": "node test.js",
-    "dev": "nodemon"
+    "dev": "nodemon .",
+    "install": "npm i && nodemon ."
   },
   "repository": {
     "type": "git",
