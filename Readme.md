@@ -1,1 +1,3 @@
-## business-cards-app
+# business-cards-app
+
+NodeJS project
