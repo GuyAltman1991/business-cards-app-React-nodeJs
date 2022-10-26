@@ -2,4 +2,4 @@
 
 NodeJS project
 
-to start the server: npm run dev
+to start the nodemon server: npm run dev
