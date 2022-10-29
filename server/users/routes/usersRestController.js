@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  return console.log("in get");
+  console.log("in get");
+  return res.send("in get");
 });
 
 router.get("/:id", (req, res) => {
