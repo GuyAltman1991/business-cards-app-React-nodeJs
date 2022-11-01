@@ -7,9 +7,9 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  const _id = req.params.id;
-  console.log(`in get. the id is ${_id}`);
-  return res.send(`in get. the id is ${_id}`);
+  const id = req.params.id;
+  console.log(`in get. the id is ${id}`);
+  return res.send(`in get. the id is ${id}`);
 });
 
 router.post("/", (req, res) => {
@@ -23,21 +23,21 @@ router.post("/login", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-  const _id = req.params.id;
-  console.log(`in put. the id is ${_id}`);
-  res.send(`in put. the id is ${_id}`);
+  const id = req.params.id;
+  console.log(`in put. the id is ${id}`);
+  res.send(`in put. the id is ${id}`);
 });
 
 router.patch("/:id", (req, res) => {
-  const _id = req.params.id;
-  console.log("in patch" + _id);
-  res.send("in patch" + _id);
+  const id = req.params.id;
+  console.log("in patch" + id);
+  res.send("in patch" + id);
 });
 
 router.delete("/:id", (req, res) => {
-  const user_id = req.params.id;
-  console.log("in user delete" + _id);
-  res.send(`in user delete ${user_id}`);
+  const userid = req.params.id;
+  console.log("in user delete" + id);
+  res.send(`in user delete ${userid}`);
 });
 
 module.exports = router;
