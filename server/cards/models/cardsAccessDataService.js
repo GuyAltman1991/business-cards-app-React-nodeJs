@@ -47,7 +47,30 @@ const remove = async (id) => {
   return Promise.resolve("not in mongodb remove");
 };
 
+const update = async (id, {}) => {
+  if (DB === "MONGODB") {
+    try {
+      return Promise.resolve(`card no: ${id} updated`);
+    } catch (error) {
+      Promise.reject(error);
+    }
+  }
+  return Promise.resolve("not in mongodb update");
+};
+
+const like = async (cardId, userId) => {
+  if (DB === "MONGODB") {
+    try {
+      return Promise.resolve(`card no: ${cardId} liked`);
+    } catch (error) {
+      Promise.reject(error);
+    }
+  }
+};
+
 exports.find = find;
 exports.findOne = findOne;
 exports.create = create;
 exports.remove = remove;
+exports.update = update;
+exports.like = like;

@@ -3,6 +3,8 @@ const {
   findOne,
   create,
   remove,
+  update,
+  like,
 } = require("../models/cardsAccessDataService");
 
 const getCards = async () => {
@@ -43,7 +45,28 @@ const deleteCard = async (id) => {
   }
 };
 
+const updateCard = async (id, { rawCard }) => {
+  try {
+    let card = { ...rawCard };
+    card = await update(id, card);
+    return Promise.resolve(card);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+const likeCard = async (cardId, userId) => {
+  try {
+    const card = await like(cardId, userId);
+    return Promise.resolve(card);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
 exports.getCards = getCards;
 exports.getCard = getCard;
 exports.createCard = createCard;
 exports.deleteCard = deleteCard;
+exports.updateCard = updateCard;
+exports.likeCard = likeCard;

@@ -4,6 +4,8 @@ const {
   getCard,
   createCard,
   deleteCard,
+  updateCard,
+  likeCard,
 } = require("../service/cardService");
 const router = express.Router();
 const { handleErrors } = require("../../utils/errorHandler");
@@ -36,25 +38,34 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", (req, res) => {
-  const id = req.params.id;
-  console.log(`put id is ${id}`);
-  return res.send(`put id is ${id}`);
+router.put("/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    let card = await updateCard(id, req.body);
+    return res.send(card);
+  } catch (error) {
+    return handleErrors(res, 500, error.message);
+  }
 });
 
-router.patch("/:id", (req, res) => {
-  const id = req.params.id;
-  console.log(`patch id is ${id}`);
-  return res.send(`patch id is ${id}`);
+router.patch("/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const userId = "123456";
+    const card = await likeCard(id, userId);
+    return res.send(card);
+  } catch (error) {
+    return handleErrors(res, 500, error.message);
+  }
 });
 
 router.delete("/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    const card = deleteCard(id);
+    const card = await deleteCard(id);
     return res.send(card);
   } catch (error) {
-    // return handleErrors(res, error.status || 500, error.message);
+    return handleErrors(res, error.status || 500, error.message);
   }
 });
 
