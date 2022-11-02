@@ -1,6 +1,6 @@
 const express = require("express");
 const { handleErrors } = require("../../utils/errorHandler");
-const { getUser, getUsers } = require("../services/userService");
+const { getUser, getUsers, registerUser } = require("../services/userService");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -22,9 +22,13 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", (req, res) => {
-  console.log("in post");
-  res.send("in post");
+router.post("/", async (req, res) => {
+  try {
+    const user = await registerUser(req.body);
+    return res.status(201).send(user);
+  } catch (error) {
+    return handleErrors(res, error.status || 500, error.message);
+  }
 });
 
 router.post("/login", (req, res) => {

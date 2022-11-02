@@ -24,25 +24,25 @@ const getUser = async (id) => {
   }
 };
 
-const registerUser = async (rawCard) => {
+const registerUser = async (rawUser) => {
   try {
-    let card = { ...rawCard };
-    const user = await create(card);
+    let user = { ...rawUser };
+    user.createdAt = new Date();
+    user = await create(user);
     return Promise.resolve(user);
   } catch (error) {
     return Promise.reject(error);
   }
 };
 
-// const loginUser = async (rawCard) => {
-//     try {
-//       let card = { ...rawCard };
-//       const user = await create(card);
-//       return Promise.resolve(user);
-//     } catch (error) {
-//       return Promise.reject(error);
-//     }
-//   };
+const loginUser = async (user) => {
+  try {
+    const user = await login(user);
+    return Promise.resolve(user);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
 
 const updateUser = async (id, rawCard) => {
   try {
@@ -63,10 +63,9 @@ const deleteUser = async (id) => {
   }
 };
 
-const changeIsBizStatus = async (rawCard, userId) => {
+const changeIsBizStatus = async (userId) => {
   try {
-    let card = { ...rawCard };
-    const user = await changeIsBizStatus(card, userId);
+    const user = await changeIsBizStatus(userId);
     Promise.resolve(user);
   } catch (error) {
     return Promise.reject(error);
@@ -76,7 +75,7 @@ const changeIsBizStatus = async (rawCard, userId) => {
 exports.getUsers = getUsers;
 exports.getUser = getUser;
 exports.registerUser = registerUser;
-// exports.loginUser = loginUser;
+exports.loginUser = loginUser;
 exports.updateUser = updateUser;
 exports.deleteUser = deleteUser;
 exports.changeIsBizStatus = changeIsBizStatus;
