@@ -1,15 +1,25 @@
 const express = require("express");
+const { handleErrors } = require("../../utils/errorHandler");
+const { getUser, getUsers } = require("../services/userService");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  console.log("in get");
-  return res.send("in get");
+router.get("/", async (req, res) => {
+  try {
+    const users = await getUsers();
+    return res.send(users);
+  } catch (error) {
+    return handleErrors(res, error.status || 500, error.message);
+  }
 });
 
-router.get("/:id", (req, res) => {
-  const id = req.params.id;
-  console.log(`in get. the id is ${id}`);
-  return res.send(`in get. the id is ${id}`);
+router.get("/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const user = await getUser(id);
+    return res.send(user);
+  } catch (error) {
+    return handleErrors(res, error.status || 500, error.message);
+  }
 });
 
 router.post("/", (req, res) => {
