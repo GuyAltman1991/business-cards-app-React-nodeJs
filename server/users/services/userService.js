@@ -1,9 +1,11 @@
 const {
   find,
   findOne,
-  create,
   update,
   remove,
+  register,
+  login,
+  changeIsBizStatus,
 } = require("../models/userDataAccessService");
 
 const getUsers = async () => {
@@ -28,7 +30,7 @@ const registerUser = async (rawUser) => {
   try {
     let user = { ...rawUser };
     user.createdAt = new Date();
-    user = await create(user);
+    user = await register(user);
     return Promise.resolve(user);
   } catch (error) {
     return Promise.reject(error);
@@ -37,17 +39,26 @@ const registerUser = async (rawUser) => {
 
 const loginUser = async (user) => {
   try {
-    const user = await login(user);
+    user = await login(user);
     return Promise.resolve(user);
   } catch (error) {
     return Promise.reject(error);
   }
 };
 
-const updateUser = async (id, rawCard) => {
+const updateUser = async (id, rawUser) => {
   try {
-    let card = { ...rawCard };
-    const user = await update(id, card);
+    let user = { ...rawUser };
+    user = await update(id, user);
+    return Promise.resolve(user);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+const changeUserBusinessStatus = async (userId) => {
+  try {
+    let user = await changeIsBizStatus(userId);
     return Promise.resolve(user);
   } catch (error) {
     return Promise.reject(error);
@@ -63,19 +74,10 @@ const deleteUser = async (id) => {
   }
 };
 
-const changeIsBizStatus = async (userId) => {
-  try {
-    const user = await changeIsBizStatus(userId);
-    Promise.resolve(user);
-  } catch (error) {
-    return Promise.reject(error);
-  }
-};
-
 exports.getUsers = getUsers;
 exports.getUser = getUser;
 exports.registerUser = registerUser;
 exports.loginUser = loginUser;
 exports.updateUser = updateUser;
 exports.deleteUser = deleteUser;
-exports.changeIsBizStatus = changeIsBizStatus;
+exports.changeUserBusinessStatus = changeUserBusinessStatus;

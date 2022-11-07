@@ -6,7 +6,7 @@ const find = async () => {
       return Promise.resolve([{ users: " users in mongodb" }]);
     } catch (error) {
       error.status = 404;
-      return Promise.resolve(error);
+      return Promise.reject(error);
     }
   }
   return Promise.resolve("not in mongodb");
@@ -17,40 +17,52 @@ const findOne = async (id) => {
     try {
       return Promise.resolve(`user no: ${id}`);
     } catch (error) {
-      return Promise.resolve(error);
+      return Promise.reject(error);
     }
   }
   return Promise.resolve("not in mongodb");
 };
 
-const create = async ({}) => {
+const register = async (user) => {
   if (DB === "MONGODB") {
     try {
-      return Promise.resolve(`user no: ${id}`);
+      user._id = "12345";
+      return Promise.resolve(user);
     } catch (error) {
-      return Promise.resolve(error);
+      return Promise.reject(error);
     }
   }
   return Promise.resolve("not in mongodb");
 };
 
-const login = async ({}) => {
+const login = async (user) => {
   if (DB === "MONGODB") {
     try {
-      return Promise.resolve(`user no: ${id}`);
+      return Promise.resolve(`in login`);
     } catch (error) {
-      return Promise.resolve(error);
+      return Promise.reject(error);
     }
   }
   return Promise.resolve("not in mongodb");
 };
 
-const update = async (id, {}) => {
+const update = async (id, user) => {
   if (DB === "MONGODB") {
     try {
       return Promise.resolve(`user no: ${id} updated`);
     } catch (error) {
-      return Promise.resolve(error);
+      return Promise.reject(error);
+    }
+  }
+  return Promise.resolve("not in mongodb");
+};
+
+const changeIsBizStatus = async (userId) => {
+  if (DB === "MONGODB") {
+    try {
+      return Promise.resolve(`user no: ${userId} isBusiness!`);
+    } catch (error) {
+      return Promise.reject(error);
     }
   }
   return Promise.resolve("not in mongodb");
@@ -61,18 +73,7 @@ const remove = async (id) => {
     try {
       return Promise.resolve(`user no: ${id} deleted`);
     } catch (error) {
-      return Promise.resolve(error);
-    }
-  }
-  return Promise.resolve("not in mongodb");
-};
-
-const changeIsBizStatus = async (cardId, userId) => {
-  if (DB === "MONGODB") {
-    try {
-      return Promise.resolve(`user no: ${id} isBusiness!`);
-    } catch (error) {
-      return Promise.resolve(error);
+      return Promise.reject(error);
     }
   }
   return Promise.resolve("not in mongodb");
@@ -80,7 +81,7 @@ const changeIsBizStatus = async (cardId, userId) => {
 
 exports.find = find;
 exports.findOne = findOne;
-exports.create = create;
+exports.register = register;
 exports.login = login;
 exports.remove = remove;
 exports.update = update;

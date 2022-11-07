@@ -1,6 +1,15 @@
 const express = require("express");
 const { handleErrors } = require("../../utils/errorHandler");
-const { getUser, getUsers, registerUser } = require("../services/userService");
+const {
+  getUser,
+  getUsers,
+  registerUser,
+  loginUser,
+  updateUser,
+  changeIsBizStatus,
+  changeUserBusinessStatus,
+  deleteUser,
+} = require("../services/userService");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -31,27 +40,43 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.post("/login", (req, res) => {
-  console.log("login in post");
-  res.send("login in post");
+router.post("/login", async (req, res) => {
+  try {
+    const user = await loginUser(req.body);
+    res.send(user);
+  } catch (error) {
+    return handleErrors(res, error.status || 500, error.message);
+  }
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", async (req, res) => {
   const id = req.params.id;
-  console.log(`in put. the id is ${id}`);
-  res.send(`in put. the id is ${id}`);
+  try {
+    const user = await updateUser(id, req.body);
+    res.send(user);
+  } catch (error) {
+    return handleErrors(res, error.status || 500, error.message);
+  }
 });
 
-router.patch("/:id", (req, res) => {
+router.patch("/:id", async (req, res) => {
   const id = req.params.id;
-  console.log("in patch" + id);
-  res.send("in patch" + id);
+  try {
+    const user = await changeUserBusinessStatus(id);
+    return res.send(user);
+  } catch (error) {
+    return handleErrors(res, error.status || 500, error.message);
+  }
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", async (req, res) => {
   const userid = req.params.id;
-  console.log("in user delete" + id);
-  res.send(`in user delete ${userid}`);
+  try {
+    const user = await deleteUser(userid);
+    return res.send(user);
+  } catch (error) {
+    return handleErrors(res, error.status || 500, error.message);
+  }
 });
 
 module.exports = router;
