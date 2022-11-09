@@ -27,7 +27,7 @@ const create = async (card) => {
   if (DB === "MONGODB") {
     try {
       card.id = "12345";
-      return Promise.resolve(`card no: ${card.id} created at`);
+      return Promise.resolve(`card no: ${card.id} created`);
     } catch (error) {
       error.status = 400;
       return Promise.reject(error);

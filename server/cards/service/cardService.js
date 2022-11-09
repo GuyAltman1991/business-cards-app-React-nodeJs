@@ -6,6 +6,7 @@ const {
   update,
   like,
 } = require("../models/cardsAccessDataService");
+const { validateCard } = require("../validations/cardValidationService");
 
 const getCards = async () => {
   try {
@@ -27,10 +28,12 @@ const getCard = async (id) => {
 
 const createCard = async (rawCard) => {
   try {
+    const { error } = validateCard(rawCard);
+    console.log(error.details[0].message);
     let card = { ...rawCard };
     card.createdAt = new Date().toLocaleTimeString();
     card = await create(card);
-    return Promise.resolve(card);
+    return Promise.resolve(card + " success!");
   } catch (error) {
     return Promise.reject(error);
   }

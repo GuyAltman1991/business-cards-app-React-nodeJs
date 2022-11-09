@@ -7,6 +7,8 @@ const {
   login,
   changeIsBizStatus,
 } = require("../models/userDataAccessService");
+const validateLogin = require("../validations/userValidationService");
+const validateRegistration = require("../validations/userValidationService");
 
 const getUsers = async () => {
   try {
@@ -27,11 +29,12 @@ const getUser = async (id) => {
 };
 
 const registerUser = async (rawUser) => {
+  const { error } = validateRegistration(rawUser);
   try {
     let user = { ...rawUser };
     user.createdAt = new Date();
     user = await register(user);
-    return Promise.resolve(user);
+    return Promise.resolve(user + "success");
   } catch (error) {
     return Promise.reject(error);
   }
@@ -39,8 +42,9 @@ const registerUser = async (rawUser) => {
 
 const loginUser = async (user) => {
   try {
+    const { error } = validateLogin(user);
     user = await login(user);
-    return Promise.resolve(user);
+    return Promise.resolve(user + " success");
   } catch (error) {
     return Promise.reject(error);
   }
