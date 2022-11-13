@@ -34,6 +34,7 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const user = await registerUser(req.body);
+    console.log(1);
     return res.status(201).send(user);
   } catch (error) {
     return handleErrors(res, error.status || 500, error.message);
@@ -43,6 +44,7 @@ router.post("/", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const user = await loginUser(req.body);
+
     res.send(user);
   } catch (error) {
     return handleErrors(res, error.status || 500, error.message);

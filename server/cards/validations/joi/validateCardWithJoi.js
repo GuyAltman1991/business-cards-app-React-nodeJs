@@ -32,13 +32,13 @@ const validateCardWithJoi = (card) => {
         .allow(""),
       alt: joi.string().min(2).max(256).allow(""),
     }),
-    address: joi.object({
+    address: joi.object().keys({
       state: joi.string().min(2).max(256).allow(""),
       country: joi.string().min(2).max(256),
       city: joi.string().min(2).max(256),
       street: joi.string().min(2).max(256),
       houseNumber: joi.number().min(1),
-      //   zip: joi.number().min(1), // not working proparly right now
+      //   zip: joi.number().min(4), // not working proparly right now
     }),
     bizNumber: joi.number().allow(""),
     user_id: joi.string().allow(""),

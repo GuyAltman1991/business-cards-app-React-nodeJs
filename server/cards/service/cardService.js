@@ -27,8 +27,8 @@ const getCard = async (id) => {
 };
 
 const createCard = async (rawCard) => {
+  const { error } = validateCard(rawCard);
   try {
-    const { error } = validateCard(rawCard);
     console.log(error.details[0].message);
     let card = { ...rawCard };
     card.createdAt = new Date().toLocaleTimeString();

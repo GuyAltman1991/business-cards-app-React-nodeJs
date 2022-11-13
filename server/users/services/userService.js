@@ -1,3 +1,4 @@
+const { handleJoiError } = require("../../utils/errorHandler");
 const {
   find,
   findOne,
@@ -7,8 +8,10 @@ const {
   login,
   changeIsBizStatus,
 } = require("../models/userDataAccessService");
-const validateLogin = require("../validations/userValidationService");
-const validateRegistration = require("../validations/userValidationService");
+const {
+  validateLogin,
+  validateRegistration,
+} = require("../validations/userValidationService");
 
 const getUsers = async () => {
   try {
@@ -30,6 +33,7 @@ const getUser = async (id) => {
 
 const registerUser = async (rawUser) => {
   const { error } = validateRegistration(rawUser);
+  if (error) return handleJoiError(error);
   try {
     let user = { ...rawUser };
     user.createdAt = new Date();
@@ -41,8 +45,9 @@ const registerUser = async (rawUser) => {
 };
 
 const loginUser = async (user) => {
+  const { error } = validateLogin(user);
+  if (error) return handleJoiError(error);
   try {
-    const { error } = validateLogin(user);
     user = await login(user);
     return Promise.resolve(user + " success");
   } catch (error) {

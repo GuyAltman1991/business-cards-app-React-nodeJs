@@ -2,7 +2,7 @@ const joi = require("joi");
 
 const registerValidation = (user) => {
   const userSchema = joi.object({
-    name: joi.object({
+    name: joi.object().keys({
       first: joi.string().min(2).max(256),
       middle: joi.string().min(2).max(256).allow(""),
       last: joi.string().min(2).max(256),
@@ -21,14 +21,12 @@ const registerValidation = (user) => {
       .rule({ message: "must be a valid email" }),
     password: joi
       .string()
-      .ruleset.regex(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{9,}$/
-      )
+      .ruleset.regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)
       .rule({
         message:
-          "Minimum nine characters, at least one uppercase letter, one lowercase letter, one number and one special characte",
+          "Minimum nine ddddddddddddddd, at least one uppercase letter, one lowercase letter, one number and one special characte",
       }),
-    image: joi.object({
+    image: joi.object().keys({
       url: joi
         .string()
         .ruleset.regex(/([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/)
@@ -38,7 +36,7 @@ const registerValidation = (user) => {
         .allow(""),
       alt: joi.string().min(2).max(256).allow(""),
     }),
-    address: joi.object({
+    address: joi.object().keys({
       state: joi.string().min(2).max(256).allow(""),
       country: joi.string().min(2).max(256),
       city: joi.string().min(2).max(256),
