@@ -5,6 +5,7 @@ const userUpdateValidation = require("./joi/userUpdateValidation");
 const validator = undefined || "joi";
 
 const validateRegistration = (user) => {
+  console.log(4);
   if (validator === "joi") return registerValidation(user);
 };
 

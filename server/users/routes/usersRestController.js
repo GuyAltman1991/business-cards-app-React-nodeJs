@@ -12,6 +12,15 @@ const {
 } = require("../services/userService");
 const router = express.Router();
 
+router.post("/", async (req, res) => {
+  try {
+    const user = await registerUser(req.body);
+    return res.status(201).send(user);
+  } catch (error) {
+    return handleErrors(res, error.status || 500, error.message);
+  }
+});
+
 router.get("/", async (req, res) => {
   try {
     const users = await getUsers();
@@ -26,16 +35,6 @@ router.get("/:id", async (req, res) => {
     const id = req.params.id;
     const user = await getUser(id);
     return res.send(user);
-  } catch (error) {
-    return handleErrors(res, error.status || 500, error.message);
-  }
-});
-
-router.post("/", async (req, res) => {
-  try {
-    const user = await registerUser(req.body);
-    console.log(1);
-    return res.status(201).send(user);
   } catch (error) {
     return handleErrors(res, error.status || 500, error.message);
   }

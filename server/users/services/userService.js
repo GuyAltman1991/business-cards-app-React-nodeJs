@@ -32,13 +32,16 @@ const getUser = async (id) => {
 };
 
 const registerUser = async (rawUser) => {
+  console.log(1);
   const { error } = validateRegistration(rawUser);
+  console.log(2);
   if (error) return handleJoiError(error);
+  console.log(3);
   try {
     let user = { ...rawUser };
     user.createdAt = new Date();
     user = await register(user);
-    return Promise.resolve(user + "success");
+    return Promise.resolve(user);
   } catch (error) {
     return Promise.reject(error);
   }
@@ -49,7 +52,7 @@ const loginUser = async (user) => {
   if (error) return handleJoiError(error);
   try {
     user = await login(user);
-    return Promise.resolve(user + " success");
+    return Promise.resolve(user);
   } catch (error) {
     return Promise.reject(error);
   }

@@ -38,7 +38,7 @@ const register = async (user) => {
 const login = async (user) => {
   if (DB === "MONGODB") {
     try {
-      return Promise.resolve(`in login`);
+      return Promise.resolve(user);
     } catch (error) {
       return Promise.reject(error);
     }

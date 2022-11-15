@@ -1,3 +1,4 @@
+const normalizeCard = require("../helpers/normalizeCard");
 const {
   find,
   findOne,
@@ -33,7 +34,7 @@ const createCard = async (rawCard) => {
     let card = { ...rawCard };
     card.createdAt = new Date().toLocaleTimeString();
     card = await create(card);
-    return Promise.resolve(card + " success!");
+    return Promise.resolve(card);
   } catch (error) {
     return Promise.reject(error);
   }
