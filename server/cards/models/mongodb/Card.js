@@ -42,7 +42,7 @@ const cardSchema = new mongoose.Schema({
     zip: { type: Number, required: true },
   },
   bizNumber: { type: Number, minLength: 9, maxLength: 9, required: true },
-  createdAt: new Date(),
+  createdAt: { type: Date, default: new Date() },
   user_id: new mongoose.Types.ObjectId(),
   likes: [String],
 });
