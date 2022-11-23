@@ -1,20 +1,21 @@
-const registerValidation = require("./joi/registerValidation");
-const loginValidation = require("./joi/loginValidation");
-const userUpdateValidation = require("./joi/userUpdateValidation");
+const registerValidation = require("./Joi/registerValidation");
+const loginValidation = require("./Joi/loginValidation");
+const userUpdateValidation = require("./Joi/userUpdateValidation");
 
-const validator = undefined || "joi";
+const validator = undefined || "Joi";
 
-const validateRegistration = (user) => {
-  console.log(4);
-  if (validator === "joi") return registerValidation(user);
+const validateRegistration = user => {
+  if (validator === "Joi") return registerValidation(user);
 };
 
-const validateLogin = (user) => {
-  if (validator === "joi") return loginValidation(user);
+const validateLogin = user => {
+  if (validator === "Joi") return loginValidation(user);
+};
+
+const validateUserUpdate = user => {
+  if (validator === "Joi") return userUpdateValidation(user);
 };
 
 exports.validateRegistration = validateRegistration;
 exports.validateLogin = validateLogin;
-
-// module.exports = validateRegistration;
-// module.exports = validateLogin;
+exports.validateUserUpdate = validateUserUpdate;

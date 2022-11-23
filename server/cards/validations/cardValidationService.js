@@ -1,9 +1,9 @@
-const validateCardWithJoi = require("./joi/validateCardWithJoi");
+const validateCardWithJoi = require("./Joi/validateCardWithJoi");
 
-const validator = undefined || "joi";
+const validator = undefined || "Joi";
 
-const validateCard = (card) => {
-  if (validator === "joi") return validateCardWithJoi(card);
+const validateCard = card => {
+  if (validator === "Joi") return validateCardWithJoi(card);
 };
 
-exports.validateCard = validateCard;
+module.exports = validateCard;

@@ -1,58 +1,59 @@
-const joi = require("joi");
+const Joi = require("joi");
 
-const registerValidation = (user) => {
-  const userSchema = joi.object({
-    name: joi.object().keys({
-      first: joi.string().min(2).max(256),
-      middle: joi.string().min(2).max(256).allow(""),
-      last: joi.string().min(2).max(256),
-    }),
-    isBusiness: joi.boolean(),
-    phone: joi
-      .string()
-      .ruleset.regex(/^05\d([-]{0,1})\d{7}$/)
-      .rule({ message: "phone must be numbers" })
+const registerValidation = user => {
+  const schema = Joi.object({
+    name: Joi.object()
+      .keys({
+        first: Joi.string().min(2).max(256).required(),
+        middle: Joi.string().min(2).max(256).allow(""),
+        last: Joi.string().min(2).max(256).required(),
+      })
       .required(),
-    email: joi
-      .string()
-      .ruleset.regex(
+    isBusiness: Joi.boolean().required(),
+    phone: Joi.string()
+      .ruleset.regex(/0[0-9]{1,2}\-?\s?[0-9]{3}\s?[0-9]{4}/)
+
+      .rule({ message: 'user "phone" mast be a valid phone number' })
+      .required(),
+    email: Joi.string()
+      .ruleset.pattern(
         /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/
       )
-      .rule({ message: "must be a valid email" }),
-    password: joi
-      .string()
-      .ruleset.regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{9,}$/)
+      .rule({ message: 'user "mail" mast be a valid mail' })
+      .required(),
+    password: Joi.string()
+      .ruleset.regex(
+        /((?=.*\d{1})(?=.*[A-Z]{1})(?=.*[a-z]{1})(?=.*[!@#$%^&*-]{1}).{7,20})/
+      )
       .rule({
         message:
-          "Minimum nine characters, at least one uppercase letter, one lowercase letter, one number and one special characte",
+          'user "password" must be at least nine characters long and contain an uppercase letter, a lowercase letter, a number and one of the following characters !@#$%^&*-',
       })
       .required(),
-    image: joi
-      .object()
+    image: Joi.object()
       .keys({
-        url: joi
-          .string()
-          .ruleset.regex(/([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/)
-          .rule({
-            message: "must be a valid url and must end with jpg|jpeg|png|gif",
-          })
+        url: Joi.string()
+          .ruleset.regex(
+            /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/
+          )
+          .rule({ message: "user image mast be a valid url" })
           .allow(""),
-        alt: joi.string().min(2).max(256).allow(""),
+        alt: Joi.string().min(2).max(256).allow(""),
       })
       .required(),
-    address: joi
-      .object()
+    address: Joi.object()
       .keys({
-        state: joi.string().min(2).max(256).allow(""),
-        country: joi.string().min(2).max(256),
-        city: joi.string().min(2).max(256),
-        street: joi.string().min(2).max(256),
-        houseNumber: joi.number().min(1),
-        zip: joi.number().min(4),
+        state: Joi.string().allow(""),
+        country: Joi.string().required(),
+        city: Joi.string().required(),
+        street: Joi.string().required(),
+        houseNumber: Joi.number().required(),
+        zip: Joi.number(),
       })
       .required(),
+    isAdmin: Joi.boolean().allow(""),
   });
-  return userSchema.validate(user);
+  return schema.validate(user);
 };
 
 module.exports = registerValidation;

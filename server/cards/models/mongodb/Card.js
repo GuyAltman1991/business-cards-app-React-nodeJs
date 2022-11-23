@@ -1,50 +1,48 @@
-const mongoose = required("mongoose");
-
-const min2StringRequire = { type: String, minLength: 2, required: true };
-const min2StringAllow = { type: String, minLength: 2 };
+const mongoose = require("mongoose");
+const Address = require("./Address");
+const Image = require("./Image");
+const { DEFAULT_VALIDATION, URL } = require("../../helpers/mongooseValidators");
 
 const cardSchema = new mongoose.Schema({
-  title: min2StringRequire,
-  subTitle: min2StringRequire,
-  description: min2StringRequire,
+  title: DEFAULT_VALIDATION,
+  subtitle: DEFAULT_VALIDATION,
+  description: {
+    ...DEFAULT_VALIDATION,
+    maxLength: 1024,
+  },
   phone: {
     type: String,
-    match: RegExp(/^0[0-9]{1,2}(\-?|\s?)[0-9]{3}(\-?|\s?)[0-9]{4}/),
-    required,
+    required: true,
+    match: RegExp(/0[0-9]{1,2}\-?\s?[0-9]{3}\s?[0-9]{4}/),
   },
   email: {
     type: String,
+    required: true,
     match: RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/),
-
-    required,
+    lowercase: true,
+    trim: true,
+    unique: true,
   },
-  web: {
-    type: String,
-    match: RegExp(
-      /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/
-    ),
+  web: URL,
+  image: Image,
+  address: Address,
+  bizNumber: {
+    type: Number,
+    minLength: 7,
+    maxLength: 7,
+    required: true,
+    trim: true,
   },
-  image: {
-    url: {
-      type: String,
-      match: RegExp(
-        /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/
-      ),
-    },
-    alt: min2StringRequire,
-  },
-  address: {
-    state: min2StringAllow,
-    country: min2StringRequire,
-    city: min2StringRequire,
-    street: min2StringRequire,
-    houseNumber: { type: Number, required: true },
-    zip: { type: Number, required: true },
-  },
-  bizNumber: { type: Number, minLength: 9, maxLength: 9, required: true },
-  createdAt: { type: Date, default: new Date() },
-  user_id: new mongoose.Types.ObjectId(),
   likes: [String],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  user_id: {
+    type: mongoose.Schema.Types.ObjectId,
+  },
 });
 
-module.exports = cardSchema;
+const Card = mongoose.model("card", cardSchema);
+
+module.exports = Card;

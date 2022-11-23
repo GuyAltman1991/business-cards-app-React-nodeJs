@@ -1,9 +1,9 @@
-const ENVIRONMENT = "dev";
-// const ENVIRONMENT = "prod";
+const ENVIRONMENT = undefined || "development";
 
-const connectToDB = () => {
-  if (ENVIRONMENT === "dev") require("./dataBases/connectToMongoDB");
-  if (ENVIRONMENT === "prod") require("./dataBases/connectToAtlas");
+const connectToDb = () => {
+  if (ENVIRONMENT === "development")
+    require("./mongodb/connectToMongodbLocally");
+  if (ENVIRONMENT === "production") require("./mongodb/connectToAtlas");
 };
 
-module.exports = connectToDB;
+module.exports = connectToDb;
