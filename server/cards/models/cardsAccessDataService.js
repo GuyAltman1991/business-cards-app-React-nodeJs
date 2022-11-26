@@ -1,6 +1,5 @@
 const { handleBadRequest } = require("../../utils/handleErrors");
-const { findById } = require("./mongodb/Card");
-const Card = require("./mongodb/Card");
+const Card = require("../models/mongodb/Card");
 
 const DB = process.env.DB || "MONGODB";
 
@@ -82,16 +81,22 @@ const updateCard = async (cardId, normalizedCard) => {
 const likeCard = async (cardId, userId) => {
   if (DB === "MONGODB") {
     try {
-      const card = await Card.findById(cardId);
+      let card = await Card.findById(cardId);
       if (!card)
         throw new Error(
           "could not change card like becouse a card with this ID cannot be found in the database!"
         );
-      if (card) {
-        return Promise.resolve(
-          Card.updateOne({ cardId }, { $push: { likes: [userId] } })
-        );
+      const cardLikes = card.likes.find((id) => id === userId);
+
+      if (!cardLikes) {
+        card.likes.push(userId);
+        card = await card.save();
+        return Promise.resolve(card);
       }
+      const cardFiltered = card.likes.filter((id) => id !== userId);
+      card.likes = cardFiltered;
+      card = await card.save();
+      return Promise.resolve(card);
     } catch (error) {
       error.status = 400;
       return handleBadRequest("mongoose", error);
