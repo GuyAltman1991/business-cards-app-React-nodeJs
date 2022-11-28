@@ -24,7 +24,7 @@ router.get("/", async (req, res) => {
 
 router.get("/my-cards", async (req, res) => {
   try {
-    const userId = 123456;
+    const userId = "6376667871c9c1d0b30481f7";
     const card = await getMyCards(userId);
     return res.send(card);
   } catch (error) {
@@ -63,9 +63,9 @@ router.put("/:id", async (req, res) => {
     let card = req.body;
     const cardId = req.params.id;
 
-    const { error } = validateCard(card);
-    if (error)
-      return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
+    // const { error } = validateCard(card);
+    // if (error)
+    //   return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
 
     card = await normalizeCard(card);
     card = await updateCard(cardId, card);

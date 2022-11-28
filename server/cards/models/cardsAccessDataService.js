@@ -20,7 +20,7 @@ const getCards = async () => {
 const getMyCards = async (userId) => {
   if (DB === "MONGODB") {
     try {
-      const cards = await Card.find({}, { user_id: userId });
+      const cards = await Card.find({ user_id: userId });
       if (!cards) throw new Error("could not find any card in the database");
       return Promise.resolve(cards);
     } catch (error) {
