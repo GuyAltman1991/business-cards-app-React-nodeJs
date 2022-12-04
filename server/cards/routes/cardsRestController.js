@@ -1,4 +1,5 @@
 const express = require("express");
+const auth = require("../../auth/authService");
 const { handleError } = require("../../utils/handleErrors");
 const normalizeCard = require("../helpers/normalizeCard");
 const {
@@ -42,7 +43,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   try {
     let card = req.body;
     const user = { _id: "6376667871c9c1d0b30481f7" };
@@ -58,7 +59,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
   try {
     let card = req.body;
     const cardId = req.params.id;
@@ -75,7 +76,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", auth, async (req, res) => {
   try {
     const cardId = req.params.id;
     const userId = { _id: "6376667871c9c1d0b30481f7" };
@@ -86,7 +87,7 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
   try {
     const cardId = req.params.id;
     const user = { _id: "6376667871c9c1d0b30481f7" };

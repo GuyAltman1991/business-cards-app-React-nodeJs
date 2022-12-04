@@ -5,6 +5,7 @@ const { pick } = require("lodash");
 const normalizeUser = require("../helpers/normalizeUser");
 const { compare } = require("bcryptjs");
 const { comparePassword } = require("../helpers/bctypt");
+const { generateAuthToken } = require("../../auth/providers/jwt");
 
 const DB = process.env.DB || "MONGODB";
 
@@ -35,9 +36,9 @@ const loginUser = async ({ email, password }) => {
 
       const ValidPassword = comparePassword(password, user.password);
       if (!ValidPassword) throw new Error("Invalid email or password");
-      // const { email } = normalizeUser;
 
-      return Promise.resolve({ ...user, token: "a2a2a2" });
+      const token = generateAuthToken(user);
+      return Promise.resolve(token);
     } catch (error) {
       error.status = 400;
       return Promise.reject(error);
@@ -63,7 +64,7 @@ const getUsers = async () => {
 const getUser = async (userId) => {
   if (DB === "MONGODB") {
     try {
-      const user = await User.findById(userId, {
+      let user = await User.findById(userId, {
         password: 0,
         __v: 0,
       });

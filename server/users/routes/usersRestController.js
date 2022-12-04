@@ -1,4 +1,5 @@
 const express = require("express");
+const auth = require("../../auth/authService");
 const { handleError } = require("../../utils/handleErrors");
 const { generateUserPassword } = require("../helpers/bctypt");
 const normalizeUser = require("../helpers/normalizeUser");
@@ -50,8 +51,17 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   try {
+    const user = req.user;
+
+    if (!user.isAdmin)
+      return handleError(
+        res,
+        403,
+        "Authorization Error: You must be an admin user to see all users in the database"
+      );
+
     const users = await getUsers();
     return res.send(users);
   } catch (error) {
@@ -59,9 +69,17 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", auth, async (req, res) => {
   try {
     const { id } = req.params;
+    const { _id, isAdmin } = req.user;
+    if (_id !== id && !isAdmin)
+      return handleError(
+        res,
+        403,
+        "Authorization Error: You must be an admin user to see all users in the database"
+      );
+
     const user = await getUser(id);
     return res.send(user);
   } catch (error) {
@@ -69,24 +87,16 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.patch("/:id", auth, async (req, res) => {
   try {
     const { id } = req.params;
-    let user = req.body;
-    const { error } = validateUserUpdate(user);
-    if (error)
-      return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
-    // user = normalizeUser(user); //need to fix
-    user = await updateUser(id, user);
-    return res.send(user);
-  } catch (error) {
-    return handleError(res, error.status || 500, error.message);
-  }
-});
-
-router.patch("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
+    const { _id, isAdmin } = req.user;
+    if (_id !== id && !isAdmin)
+      return handleError(
+        res,
+        403,
+        "Authorization Error: You must be an admin user to see all users in the database"
+      );
     const user = await changeUserBusinessStatus(id);
     return res.send(user);
   } catch (error) {
@@ -94,9 +104,43 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
   try {
     const { id } = req.params;
+    const { _id } = req.user;
+    console.log(user);
+    console.log(id);
+    console.log(_id);
+
+    if (_id !== id)
+      return handleError(
+        res,
+        403,
+        "Authorization Error: You must be the user to update the details"
+      );
+    const { error } = validateUserUpdate(user);
+    console.log(1);
+    if (error)
+      return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
+    user = normalizeUser(user);
+    user = await updateUser(id, user);
+    return res.send(user);
+  } catch (error) {
+    return handleError(res, error.status || 500, error.message);
+  }
+});
+
+router.delete("/:id", auth, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { _id, isAdmin } = req.user;
+
+    if (_id !== id || !isAdmin)
+      return handleError(
+        res,
+        403,
+        "Authorization Error: You must be the user or admin to delete the details"
+      );
     const user = await deleteUser(id);
     return res.send(user);
   } catch (error) {

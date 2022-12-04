@@ -7,6 +7,7 @@ const cors = require("./middlewares/cors");
 const logger = require("./logger/loggerService");
 const connectToDb = require("./DB/dbService");
 const config = require("config");
+const { generateInitialCards } = require("./initialData/initialDataService");
 
 app.use(cors);
 app.use(logger);
@@ -18,10 +19,10 @@ app.use((err, req, res, next) => {
   handleError(res, 500, err.message);
 });
 
-const PORT = config.get("PORT") | 8181;
-// const PORT = 8181;
+const PORT = config.get("PORT");
 
 app.listen(PORT, () => {
   console.log(chalk.blueBright(`Listening on: http://localhost:${PORT}`));
   connectToDb();
+  generateInitialCards();
 });
