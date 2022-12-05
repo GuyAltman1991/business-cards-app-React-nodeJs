@@ -85,7 +85,6 @@ const updateUser = async (userId, normalizeUser) => {
       const user = await User.findByIdAndUpdate(userId, normalizeUser, {
         new: true,
       }).select(["-password", "-__v"]);
-
       if (!user) throw new Error("could not find this user in the database!");
 
       return Promise.resolve(user);

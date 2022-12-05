@@ -108,9 +108,6 @@ router.put("/:id", auth, async (req, res) => {
   try {
     const { id } = req.params;
     const { _id } = req.user;
-    console.log(user);
-    console.log(id);
-    console.log(_id);
 
     if (_id !== id)
       return handleError(
@@ -118,8 +115,8 @@ router.put("/:id", auth, async (req, res) => {
         403,
         "Authorization Error: You must be the user to update the details"
       );
+    let user = await getUser(id);
     const { error } = validateUserUpdate(user);
-    console.log(1);
     if (error)
       return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
     user = normalizeUser(user);
@@ -134,12 +131,11 @@ router.delete("/:id", auth, async (req, res) => {
   try {
     const { id } = req.params;
     const { _id, isAdmin } = req.user;
-
-    if (_id !== id || !isAdmin)
+    if (id !== _id && !isAdmin)
       return handleError(
         res,
         403,
-        "Authorization Error: You must be the user or admin to delete the details"
+        "Authorization Error: You must be the user or admin to delete the user"
       );
     const user = await deleteUser(id);
     return res.send(user);

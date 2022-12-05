@@ -7,6 +7,7 @@ const key = "my_private_key";
 
 const generateAuthToken = (user) => {
   const { _id, isBusiness, isAdmin } = user;
+
   const token = jwt.sign({ _id, isBusiness, isAdmin }, key);
   return token;
 };

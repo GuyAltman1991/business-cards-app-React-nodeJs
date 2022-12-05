@@ -25,6 +25,11 @@ router.get("/", async (req, res) => {
 
 router.get("/my-cards", async (req, res) => {
   try {
+    const { id } = req.params;
+    const { _id, isBusiness } = req.user;
+    if (id !== _id || !isBusiness)
+      return handleError(res, 401, "you are not a business user");
+
     const userId = "6376667871c9c1d0b30481f7";
     const card = await getMyCards(userId);
     return res.send(card);
