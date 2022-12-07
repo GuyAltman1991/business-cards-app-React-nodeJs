@@ -23,21 +23,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/my-cards", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { _id, isBusiness } = req.user;
-    if (id !== _id || !isBusiness)
-      return handleError(res, 401, "you are not a business user");
-
-    const userId = "6376667871c9c1d0b30481f7";
-    const card = await getMyCards(userId);
-    return res.send(card);
-  } catch (error) {
-    return handleError(res, error.status || 500, error.message);
-  }
-});
-
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -48,10 +33,24 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.get("/my-cards", auth, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const card = await getMyCards(userId);
+    return res.send(card);
+  } catch (error) {
+    return handleError(res, error.status || 500, error.message);
+  }
+});
+
 router.post("/", auth, async (req, res) => {
   try {
     let card = req.body;
-    const user = { _id: "6376667871c9c1d0b30481f7" };
+    const user = req.user;
+
+    if (!user.isBusiness)
+      return handleError(res, 403, "Authentication Error: Unauthorize user");
+
     const { error } = validateCard(card);
     if (error)
       return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
@@ -68,6 +67,10 @@ router.put("/:id", auth, async (req, res) => {
   try {
     let card = req.body;
     const cardId = req.params.id;
+    const user = req.user;
+
+    if (!user.isBusiness)
+      return handleError(res, 403, "Authentication Error: Unauthorize user");
 
     // const { error } = validateCard(card);
     // if (error)
@@ -84,8 +87,8 @@ router.put("/:id", auth, async (req, res) => {
 router.patch("/:id", auth, async (req, res) => {
   try {
     const cardId = req.params.id;
-    const userId = { _id: "6376667871c9c1d0b30481f7" };
-    const card = await likeCard(cardId, userId._id);
+    const userId = req.user._id;
+    const card = await likeCard(cardId, userId);
     return res.send(card);
   } catch (error) {
     return handleError(res, error.status || 500, error.message);
@@ -95,7 +98,7 @@ router.patch("/:id", auth, async (req, res) => {
 router.delete("/:id", auth, async (req, res) => {
   try {
     const cardId = req.params.id;
-    const user = { _id: "6376667871c9c1d0b30481f7" };
+    const user = req.user._id;
     const card = await deleteCard(cardId, user);
     return res.send(card);
   } catch (error) {

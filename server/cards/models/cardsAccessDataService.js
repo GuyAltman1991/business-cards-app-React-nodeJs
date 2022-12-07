@@ -108,11 +108,18 @@ const likeCard = async (cardId, userId) => {
 const deleteCard = async (cardId, user) => {
   if (DB === "MONGODB") {
     try {
-      const card = await Card.findByIdAndDelete(cardId);
+      let card = await Card.findById(cardId);
+
       if (!card)
+        throw new Error("A card with this ID cannot be found in the database");
+
+      if (!user.isAdmin && user._id !== card.user_id)
         throw new Error(
-          "could not delete card becouse a card with this ID cannot be found in the database!"
+          "Authorization Error: Only the user who created the business card or admin can delete this card"
         );
+
+      card = await Card.findByIdAndDelete(cardId);
+
       return Promise.resolve(card);
     } catch (error) {
       error.status = 400;

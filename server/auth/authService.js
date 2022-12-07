@@ -12,7 +12,10 @@ const auth = (req, res, next) => {
         throw new Error("Authentication error: Please login");
       const userInfo = verifyToken(tokenFromClient);
       if (!userInfo) throw new Error("Authentication error: Unauthorize User");
+      const cardInfo = verifyToken(tokenFromClient);
+      if (!cardInfo) throw new Error("Authentication error: Unauthorize User");
       req.user = userInfo;
+      req.card = cardInfo;
 
       return next();
     } catch (error) {
