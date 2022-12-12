@@ -20,7 +20,6 @@ const normalizeUser = (rawUser) => {
     image,
     address,
   };
-
   return user;
 };
 

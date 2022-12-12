@@ -15,7 +15,6 @@ const auth = (req, res, next) => {
       const cardInfo = verifyToken(tokenFromClient);
       if (!cardInfo) throw new Error("Authentication error: Unauthorize User");
       req.user = userInfo;
-      req.card = cardInfo;
 
       return next();
     } catch (error) {

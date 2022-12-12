@@ -17,12 +17,12 @@ const getCards = async () => {
   return Promise.resolve([]);
 };
 
-const getMyCards = async (userId) => {
+const getCard = async (cardId) => {
   if (DB === "MONGODB") {
     try {
-      const cards = await Card.find({ user_id: userId });
-      if (!cards) throw new Error("could not find any card in the database");
-      return Promise.resolve(cards);
+      const card = await Card.findById(cardId);
+      if (!card) throw new Error("could not find this card in the database!");
+      return Promise.resolve(card);
     } catch (error) {
       error.status = 404;
       return handleBadRequest("mongoose", error);
@@ -31,12 +31,12 @@ const getMyCards = async (userId) => {
   return Promise.resolve([]);
 };
 
-const getCard = async (cardId) => {
+const getMyCards = async (userId) => {
   if (DB === "MONGODB") {
     try {
-      const card = await Card.findById(cardId);
-      if (!card) throw new Error("could not find this card in the database!");
-      return Promise.resolve(card);
+      const cards = await Card.find({ user_id: userId });
+      if (!cards) throw new Error("could not find any card in the database");
+      return Promise.resolve(cards);
     } catch (error) {
       error.status = 404;
       return handleBadRequest("mongoose", error);

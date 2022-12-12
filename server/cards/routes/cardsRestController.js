@@ -35,8 +35,11 @@ router.get("/:id", async (req, res) => {
 
 router.get("/my-cards", auth, async (req, res) => {
   try {
-    const userId = req.user.id;
-    const card = await getMyCards(userId);
+    const user = req.user._id;
+    const card = await getMyCards(user);
+    if (!user.isBusiness)
+      return handleError(res, 403, "Authentication Error: Unauthorize user");
+
     return res.send(card);
   } catch (error) {
     return handleError(res, error.status || 500, error.message);
@@ -67,14 +70,17 @@ router.put("/:id", auth, async (req, res) => {
   try {
     let card = req.body;
     const cardId = req.params.id;
-    const user = req.user;
+    const userId = req.user._id;
 
-    if (!user.isBusiness)
-      return handleError(res, 403, "Authentication Error: Unauthorize user");
+    if (userId !== card.user_id) {
+      const message =
+        "Authorization Error: Only the user who created the business card can update its details";
+      return handleError(res, 403, message);
+    }
 
-    // const { error } = validateCard(card);
-    // if (error)
-    //   return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
+    const { error } = validateCard(card);
+    if (error)
+      return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
 
     card = await normalizeCard(card);
     card = await updateCard(cardId, card);
@@ -97,8 +103,17 @@ router.patch("/:id", auth, async (req, res) => {
 
 router.delete("/:id", auth, async (req, res) => {
   try {
+    let rawcard = req.body;
     const cardId = req.params.id;
-    const user = req.user._id;
+    const userId = req.user._id;
+    const user = req.user;
+
+    if (!user.isAdmin && userId !== rawcard.user_id) {
+      const message =
+        "Authorization Error: Only the user who created the business card can update its details";
+      return handleError(res, 403, message);
+    }
+
     const card = await deleteCard(cardId, user);
     return res.send(card);
   } catch (error) {
