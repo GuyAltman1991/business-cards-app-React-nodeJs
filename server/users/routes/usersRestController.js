@@ -115,7 +115,7 @@ router.put("/:id", auth, async (req, res) => {
         403,
         "Authorization Error: You must be the user to update the details"
       );
-    let user = await getUser(id);
+    let user = req.body;
     const { error } = validateUserUpdate(user);
     if (error)
       return handleError(res, 400, `Joi Error: ${error.details[0].message}`);

@@ -35,7 +35,7 @@ router.get("/:id", async (req, res) => {
 
 router.get("/my-cards", auth, async (req, res) => {
   try {
-    const user = req.user._id;
+    const user = req.user;
     const card = await getMyCards(user);
     if (!user.isBusiness)
       return handleError(res, 403, "Authentication Error: Unauthorize user");
