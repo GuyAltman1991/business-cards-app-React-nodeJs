@@ -1,10 +1,12 @@
 import "./App.css";
-import PageHeader from "./components/PageHeader";
+import CardComponent from "./cards/components/card/CardComponent";
+// import PageHeader from "./components/PageHeader";
 
 function App() {
   return (
     <div className="App">
-      <PageHeader />
+      {/* <PageHeader /> */}
+      <CardComponent />
     </div>
   );
 }

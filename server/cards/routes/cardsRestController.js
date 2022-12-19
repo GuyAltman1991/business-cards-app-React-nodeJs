@@ -16,10 +16,15 @@ const { findById } = require("../models/mongodb/Card");
 const validateCard = require("../validations/cardValidationService");
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/my-cards", auth, async (req, res) => {
   try {
-    const cards = await getCards();
-    return res.send(cards);
+    const { _id, isBusiness } = req.user;
+
+    if (!isBusiness)
+      return handleError(res, 403, "Authentication Error: Unauthorize user");
+
+    const card = await getMyCards(_id);
+    return res.send(card);
   } catch (error) {
     return handleError(res, error.status || 500, error.message);
   }
@@ -35,15 +40,10 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.get("/my-cards", auth, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
-    const { _id, isBusiness } = req.user;
-
-    if (!isBusiness)
-      return handleError(res, 403, "Authentication Error: Unauthorize user");
-
-    const card = await getMyCards(_id);
-    return res.send(card);
+    const cards = await getCards();
+    return res.send(cards);
   } catch (error) {
     return handleError(res, error.status || 500, error.message);
   }
@@ -118,17 +118,9 @@ router.patch("/:id", auth, async (req, res) => {
 
 router.delete("/:id", auth, async (req, res) => {
   try {
-    const { id } = req.params;
-    const cardData = await Card.findById(id);
-    const { isAdmin, _id } = req.user;
-
-    if (_id != cardData.user_id && !isAdmin) {
-      const message =
-        "Authorization Error: Only the user who created the business card can update its details";
-      return handleError(res, 403, message);
-    }
-
-    const card = await deleteCard(id);
+    const cardId = req.params.id;
+    const user = req.user;
+    const card = await deleteCard(cardId, user);
 
     return res.send(card);
   } catch (error) {

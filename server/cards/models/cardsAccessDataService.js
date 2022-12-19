@@ -109,7 +109,8 @@ const deleteCard = async (cardId, user) => {
   if (DB === "MONGODB") {
     try {
       let card = await Card.findById(cardId);
-
+      console.log(card.user_id);
+      console.log(user._id);
       if (!card)
         throw new Error("A card with this ID cannot be found in the database");
 
