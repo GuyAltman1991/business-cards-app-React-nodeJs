@@ -109,8 +109,7 @@ const deleteCard = async (cardId, user) => {
   if (DB === "MONGODB") {
     try {
       let card = await Card.findById(cardId);
-      console.log(card.user_id);
-      console.log(user._id);
+
       if (!card)
         throw new Error("A card with this ID cannot be found in the database");
 
@@ -124,7 +123,7 @@ const deleteCard = async (cardId, user) => {
       return Promise.resolve(card);
     } catch (error) {
       error.status = 400;
-      return handleBadRequest("mongoose", error);
+      return handleBadRequest("Mongoose", error);
     }
   }
   return Promise.resolve("card deleted not in mongodb");

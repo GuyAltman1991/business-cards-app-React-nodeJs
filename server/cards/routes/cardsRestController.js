@@ -120,9 +120,23 @@ router.delete("/:id", auth, async (req, res) => {
   try {
     const cardId = req.params.id;
     const user = req.user;
-    const card = await deleteCard(cardId, user);
 
+    const card = await deleteCard(cardId, user);
     return res.send(card);
+  } catch (error) {
+    return handleError(res, error.status || 500, error.message);
+  }
+});
+
+router.patch("/:id", auth, async (req, res) => {
+  try {
+    const cardId = req.params.id;
+    const user = req.user;
+
+    if (!user.isAdmin)
+      return handleError(res, 403, "Authentication Error: Unauthorize user");
+
+    const getNumberFromAdmin = () => {};
   } catch (error) {
     return handleError(res, error.status || 500, error.message);
   }

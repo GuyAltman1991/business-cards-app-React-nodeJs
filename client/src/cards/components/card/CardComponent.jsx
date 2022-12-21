@@ -1,35 +1,50 @@
 import React from "react";
 import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/Card";
-import { CardContent, CardMedia, Divider, Typography } from "@mui/material";
+
+import { CardActionArea } from "@mui/material";
+
+import CardHead from "./CardHead";
+import CardBody from "./CardBody";
+import CardActionBar from "./CardActionBar";
 
 const CardComponent = () => {
-  return (
-    <Card sx={{ width: 250, m: 2 }} square raised variant="outlined">
-      <CardMedia
-        component="img"
-        height="140"
-        image="https://cdn.pixabay.com/photo/2021/12/29/19/08/christmas-6902574_640.jpg"
-      />
+  const card = {
+    _id: "efsdf5651651sdf651sd",
+    title: "card title sari",
+    subtitle: "card sub sari",
+    description: "descrip",
+    phone: "0501154458",
+    email: "sari@gmail.com",
+    web: "https://www.sari.com",
+    image: {
+      url: "https://cdn.pixabay.com/photo/2016/04/20/08/21/entrepreneur-1340649_960_720.jpg",
+      alt: "card image",
+    },
+    address: {
+      state: "",
+      country: "israel",
+      city: "ramat gan",
+      street: "pinchas",
+      houseNumber: "25",
+      zip: "528487",
+    },
+    bizNumber: "11111",
+    user_id: "615615151216fwsdfsdfsdf1231sdf",
+  };
 
-      <CardHeader
-        sx={{ p: 2 }}
-        title="Card Header"
-        subheader="subtitle"
-        component="h2"
-      >
-        forth
-        <Typography sx={{ color: "gray" }}> Subtitle</Typography>
-      </CardHeader>
-      <Divider />
-      <CardContent>
-        <Typography sx={{ color: "gray" }}>
-          <span style={{ fontWeight: "bold" }}> Phone:</span> 050-0000000
-          <span style={{ fontWeight: "bold" }}> Address:</span> sirkin 3
-          Givataim
-          <span style={{ fontWeight: "bold" }}> Card Number:</span> 50000000
-        </Typography>
-      </CardContent>
+  return (
+    <Card
+      sx={{ minWidth: 280, maxWidth: 350, m: 2 }}
+      square
+      raised
+      variant="outlined"
+    >
+      <CardActionArea>
+        <CardHead image={card.image} />
+        <CardBody card={card} />
+      </CardActionArea>
+
+      <CardActionBar />
     </Card>
   );
 };
