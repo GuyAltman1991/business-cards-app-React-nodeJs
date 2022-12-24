@@ -136,7 +136,7 @@ router.patch("/:id", auth, async (req, res) => {
     if (!user.isAdmin)
       return handleError(res, 403, "Authentication Error: Unauthorize user");
 
-    const getNumberFromAdmin = () => {};
+    const getNumberFromAdmin = (user) => {};
   } catch (error) {
     return handleError(res, error.status || 500, error.message);
   }
