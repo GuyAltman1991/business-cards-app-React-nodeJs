@@ -6,7 +6,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { CardActions, IconButton } from "@mui/material";
 import { Box } from "@mui/system";
 
-const CardActionBar = ({ handleCardDelete, card }) => {
+const CardActionBar = ({ cardId, handleDeleteCard, handleLikeCard, card }) => {
   return (
     <CardActions
       disableSpacing
@@ -18,13 +18,19 @@ const CardActionBar = ({ handleCardDelete, card }) => {
       }}
     >
       <Box>
-        <IconButton aria-label="delete card">
-          <DeleteIcon onClick={handleCardDelete} />
+        <IconButton
+          aria-label="delete card"
+          onClick={() => handleDeleteCard(cardId)}
+        >
+          <DeleteIcon />
         </IconButton>
-        <IconButton aria-label="edit card">
-          <CreateIcon
-            onClick={() => console.log("you edit card no : " + card.bizNumber)}
-          />
+        <IconButton
+          aria-label="edit card"
+          onClick={() =>
+            console.log("move to edit card component with " + cardId)
+          }
+        >
+          <CreateIcon />
         </IconButton>
       </Box>
       <Box>
@@ -32,9 +38,7 @@ const CardActionBar = ({ handleCardDelete, card }) => {
           <LocalPhoneIcon />
         </IconButton>
         <IconButton aria-label="add to favorites">
-          <FavoriteIcon
-            onClick={() => console.log("you like card no : " + card.bizNumber)}
-          />
+          <FavoriteIcon onClick={() => handleLikeCard(cardId)} />
         </IconButton>
       </Box>
     </CardActions>

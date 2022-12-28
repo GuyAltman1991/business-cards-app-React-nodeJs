@@ -83,8 +83,11 @@ const Cards = () => {
       </Typography>
     );
 
-  const handleCardDelete = (cards) => {
-    console.log("you deleted card no: " + cards.bizNumber);
+  const handleDeleteCard = (cardId) => {
+    console.log("you deleted card no: " + cardId);
+  };
+  const handleLikeCard = (cardId) => {
+    console.log("you liked card no: " + cardId);
   };
 
   return (
@@ -94,7 +97,8 @@ const Cards = () => {
           {" "}
           <CardComponent
             card={card}
-            handleCardDelete={() => handleCardDelete(card)}
+            handleDeleteCard={handleDeleteCard}
+            handleLikeCard={handleLikeCard}
           />
         </Grid>
       ))}

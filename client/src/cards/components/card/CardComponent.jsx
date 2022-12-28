@@ -7,7 +7,7 @@ import CardHead from "./CardHead";
 import CardBody from "./CardBody";
 import CardActionBar from "./CardActionBar";
 
-const CardComponent = ({ card, handleCardDelete }) => {
+const CardComponent = ({ card, handleDeleteCard, handleLikeCard }) => {
   return (
     <Card sx={{ minWidth: 280, m: 2 }} square raised variant="outlined">
       <CardActionArea>
@@ -15,7 +15,11 @@ const CardComponent = ({ card, handleCardDelete }) => {
         <CardBody card={card} />
       </CardActionArea>
 
-      <CardActionBar card={card} handleCardDelete={handleCardDelete} />
+      <CardActionBar
+        cardId={card._id}
+        handleDeleteCard={handleDeleteCard}
+        handleLikeCard={handleLikeCard}
+      />
     </Card>
   );
 };
