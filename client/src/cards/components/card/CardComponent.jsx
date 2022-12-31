@@ -1,11 +1,11 @@
 import React from "react";
 import Card from "@mui/material/Card";
-
 import { CardActionArea } from "@mui/material";
-
 import CardHead from "./CardHead";
 import CardBody from "./CardBody";
 import CardActionBar from "./CardActionBar";
+import cardType from "../models/types/cardType";
+import { func } from "prop-types";
 
 const CardComponent = ({ card, handleDeleteCard, handleLikeCard }) => {
   return (
@@ -22,6 +22,12 @@ const CardComponent = ({ card, handleDeleteCard, handleLikeCard }) => {
       />
     </Card>
   );
+};
+
+Card.prototype = {
+  card: cardType.isRequired,
+  handleDeleteCard: func.isRequired,
+  handleLikeCard: func.isRequired,
 };
 
 export default CardComponent;

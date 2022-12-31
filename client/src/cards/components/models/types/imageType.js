@@ -1,8 +1,8 @@
 import { string, shape } from "prop-types";
 
 const imageType = shape({
-  url: string,
-  alt: string,
+  url: string.isRequired,
+  alt: string.isRequired,
 });
 
-module.exports = imageType;
+export default imageType;

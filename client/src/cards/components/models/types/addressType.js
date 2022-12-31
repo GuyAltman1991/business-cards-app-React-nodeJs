@@ -9,4 +9,4 @@ const addressType = shape({
   zip: number,
 });
 
-module.exports = addressType;
+export default addressType;

@@ -1,14 +1,12 @@
 import "./App.css";
-import Cards from "./cards/components/Cards";
-// import CardComponent from "./cards/components/card/CardComponent";
-// import PageHeader from "./components/PageHeader";
+// import CardsPage from "./cards/pages/CardsPage";
+import AboutPage from "./pages/AboutPage";
 
 function App() {
   return (
     <div className="App">
-      {/* <PageHeader /> */}
-      {/* <CardComponent /> */}
-      <Cards />
+      {/* <CardsPage /> */}
+      <AboutPage />
     </div>
   );
 }
