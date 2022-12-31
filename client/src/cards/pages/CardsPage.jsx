@@ -1,7 +1,7 @@
 import { Container } from "@mui/system";
 import React from "react";
 import PageHeader from "../../components/PageHeader";
-import Cards from "../Cards";
+import Cards from "../components/Cards";
 
 const CardsPage = () => {
   const cards = [

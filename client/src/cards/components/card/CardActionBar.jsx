@@ -38,8 +38,11 @@ const CardActionBar = ({ cardId, handleDeleteCard, handleLikeCard, card }) => {
         <IconButton aria-label="phone icon">
           <LocalPhoneIcon />
         </IconButton>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon onClick={() => handleLikeCard(cardId)} />
+        <IconButton
+          aria-label="add to favorites"
+          onClick={() => handleLikeCard(cardId)}
+        >
+          <FavoriteIcon />
         </IconButton>
       </Box>
     </CardActions>

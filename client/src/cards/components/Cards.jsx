@@ -1,8 +1,8 @@
 import React from "react";
-import CardComponent from "./components/card/CardComponent";
+import CardComponent from "./card/CardComponent";
 import { Grid, Typography } from "@mui/material";
 import { arrayOf } from "prop-types";
-import cardType from "./components/models/types/cardType";
+import cardType from "./models/types/cardType";
 
 const Cards = ({ cards }) => {
   if (!cards.length)

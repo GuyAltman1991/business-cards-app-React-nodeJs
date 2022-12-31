@@ -9,7 +9,7 @@ import { func } from "prop-types";
 
 const CardComponent = ({ card, handleDeleteCard, handleLikeCard }) => {
   return (
-    <Card sx={{ minWidth: 280, m: 2 }} square raised variant="outlined">
+    <Card sx={{ minWidth: 280, m: 2 }} square variant="outlined">
       <CardActionArea>
         <CardHead image={card.image} />
         <CardBody card={card} />
