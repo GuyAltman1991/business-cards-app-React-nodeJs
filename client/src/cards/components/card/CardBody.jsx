@@ -1,7 +1,7 @@
 import { CardContent, CardHeader, Divider, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import cardType from "../models/types/cardType";
+import cardType from "../../models/types/cardType";
 
 const CardBody = ({ card }) => {
   const { title, subtitle, phone, address } = card;

@@ -4,7 +4,7 @@ import { CardActionArea } from "@mui/material";
 import CardHead from "./CardHead";
 import CardBody from "./CardBody";
 import CardActionBar from "./CardActionBar";
-import cardType from "../models/types/cardType";
+import cardType from "../../models/types/cardType";
 import { func } from "prop-types";
 
 const CardComponent = ({ card, handleDeleteCard, handleLikeCard }) => {
