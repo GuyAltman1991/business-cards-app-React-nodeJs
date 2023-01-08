@@ -1,12 +1,16 @@
 import "./App.css";
-import CardsPage from "./cards/pages/CardsPage";
-// import AboutPage from "./pages/AboutPage";
+import Layout from "./layout/Layout";
+import Router from "./routes/Router";
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <CardsPage />
-      {/* <AboutPage /> */}
+      <BrowserRouter>
+        <Layout>
+          <Router />
+        </Layout>
+      </BrowserRouter>
     </div>
   );
 }
