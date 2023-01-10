@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Route, Routes } from "react-router-dom";
 import ROUTES from "./routesModel";
 import CardsPage from "../cards/pages/CardsPage";
@@ -19,23 +18,29 @@ import RaisingEvents from "../sandbox/events/RaisingEvents";
 import HooksSandbox from "../sandbox/hooks/HooksSandbox";
 import SetPost from "../sandbox/hooks/use-state/SetPost";
 import UseState from "../sandbox/hooks/use-state/UseState";
+import CustomCounterHook from "../sandbox/custom-hooks/CustomCounterHook";
+import CustomName from "../sandbox/custom-hooks/CustomName";
 
 const Router = () => {
   return (
     <Routes>
       <Route path={ROUTES.SANDBOX} element={<Sandbox />}>
         <Route path="logic" element={<CompLogic />} />
+        <Route path="custom-counter-hook" element={<CustomCounterHook />} />
+        <Route path="custom-name-hook" element={<CustomName />} />
         <Route path="stringInterpolation" element={<StringInterpolation />} />
         <Route path="loops" element={<Loops />} />
         <Route path="inlineStyle" element={<InlineStyle />} />
-      </Route>
-      <Route path={`${ROUTES.SANDBOX}/events`} element={<EventSandbox />}>
-        <Route path="onClick" element={<OnClick />} />
-        <Route path="raisingEvent" element={<RaisingEvents />} />
-      </Route>
-      <Route path={`${ROUTES.SANDBOX}/hooks`} element={<HooksSandbox />}>
         <Route path="setPost" element={<SetPost />} />
         <Route path="useState" element={<UseState />} />
+        <Route path="hooks" element={<HooksSandbox />}>
+          <Route path="setPost" element={<SetPost />} />
+          <Route path="useState" element={<UseState />} />
+        </Route>
+        <Route path="events" element={<EventSandbox />}>
+          <Route path="onClick" element={<OnClick />} />
+          <Route path="raisingEvent" element={<RaisingEvents />} />
+        </Route>
       </Route>
 
       <Route path={ROUTES.ABOUT} element={<AboutPage />} />

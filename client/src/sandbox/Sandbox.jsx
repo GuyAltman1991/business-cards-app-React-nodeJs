@@ -49,9 +49,15 @@ const Sandbox = () => {
             label="Events"
             sx={{ color: "black" }}
           />
+          <NavItem to={`hooks`} label="Hooks" sx={{ color: "black" }} />
           <NavItem
-            to={`${ROUTES.SANDBOX}/hooks`}
-            label="Hooks"
+            to="custom-counter-hook"
+            label="custom-counter-hook"
+            sx={{ color: "black" }}
+          />
+          <NavItem
+            to="custom-name-hook"
+            label="custom-name-hook"
             sx={{ color: "black" }}
           />
         </Toolbar>
