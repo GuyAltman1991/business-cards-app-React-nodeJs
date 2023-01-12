@@ -50,14 +50,10 @@ const Sandbox = () => {
             sx={{ color: "black" }}
           />
           <NavItem to={`hooks`} label="Hooks" sx={{ color: "black" }} />
+
           <NavItem
-            to="custom-counter-hook"
-            label="custom-counter-hook"
-            sx={{ color: "black" }}
-          />
-          <NavItem
-            to="custom-name-hook"
-            label="custom-name-hook"
+            to="customHooks"
+            label="custom-hooks"
             sx={{ color: "black" }}
           />
         </Toolbar>

@@ -20,14 +20,14 @@ import SetPost from "../sandbox/hooks/use-state/SetPost";
 import UseState from "../sandbox/hooks/use-state/UseState";
 import CustomCounterHook from "../sandbox/custom-hooks/CustomCounterHook";
 import CustomName from "../sandbox/custom-hooks/CustomName";
+import CustomHooks from "../sandbox/custom-hooks/CustomHooks";
 
 const Router = () => {
   return (
     <Routes>
       <Route path={ROUTES.SANDBOX} element={<Sandbox />}>
         <Route path="logic" element={<CompLogic />} />
-        <Route path="custom-counter-hook" element={<CustomCounterHook />} />
-        <Route path="custom-name-hook" element={<CustomName />} />
+
         <Route path="stringInterpolation" element={<StringInterpolation />} />
         <Route path="loops" element={<Loops />} />
         <Route path="inlineStyle" element={<InlineStyle />} />
@@ -36,6 +36,10 @@ const Router = () => {
         <Route path="hooks" element={<HooksSandbox />}>
           <Route path="setPost" element={<SetPost />} />
           <Route path="useState" element={<UseState />} />
+        </Route>
+        <Route path="customHooks" element={<CustomHooks />}>
+          <Route path="custom-counter-hook" element={<CustomCounterHook />} />
+          <Route path="customName" element={<CustomName />} />
         </Route>
         <Route path="events" element={<EventSandbox />}>
           <Route path="onClick" element={<OnClick />} />
