@@ -1,18 +1,10 @@
 import React from "react";
 import CardComponent from "./card/CardComponent";
-import { Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import { arrayOf } from "prop-types";
 import cardType from "../models/types/cardType";
 
 const Cards = ({ cards }) => {
-  if (!cards.length)
-    return (
-      <Typography>
-        {" "}
-        Oops.. it seems there are no business card to display{" "}
-      </Typography>
-    );
-
   const handleDeleteCard = (cardId) => {
     console.log("you deleted card no: " + cardId);
   };
