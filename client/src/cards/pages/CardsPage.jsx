@@ -1,36 +1,24 @@
-import { Container } from "@mui/system";
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
+import Container from "@mui/material/Container";
 import PageHeader from "../../components/PageHeader";
-import { getCards } from "../services/cardApiService";
 import CardsFeedback from "../components/CardsFeedback";
+import useCards from "../hooks/useCards";
 
 const CardsPage = () => {
-  const [cards, setCards] = useState(null);
-  const [ispending, setPending] = useState(false);
-  const [error, setError] = useState(null);
+  const { cards, error, isPending, handleGetCards } = useCards();
 
   useEffect(() => {
-    setPending(true);
-    getCards()
-      .then((data) => {
-        setPending(false);
-        setError(null);
-        setCards(data);
-      })
-      .catch((error) => {
-        setPending(false);
-        setError(error);
-      });
+    handleGetCards();
   }, []);
 
   return (
     <Container>
       <PageHeader
         title="Cards"
-        subtitle="here you can find business cards from all categories"
+        subtitle="Here you can find business cards from all categories"
       />
 
-      <CardsFeedback ispending={ispending} error={error} cards={cards} />
+      <CardsFeedback isPanding={isPending} error={error} cards={cards} />
     </Container>
   );
 };

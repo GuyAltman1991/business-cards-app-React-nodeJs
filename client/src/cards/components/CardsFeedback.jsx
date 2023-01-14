@@ -28,4 +28,8 @@ CardsFeedback.propTypes = {
   cards: arrayOf(cardType),
 };
 
+CardsFeedback.defaultProps = {
+  ispending: false,
+};
+
 export default CardsFeedback;
