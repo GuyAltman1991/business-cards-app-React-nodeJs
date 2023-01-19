@@ -1,21 +1,18 @@
 import axios from "axios";
+import { useSnackbar } from "../providers/SnackbarProvider";
 
 const useAxios = () => {
+  const snack = useSnackbar();
   axios.interceptors.request.use((data) => {
     console.log("in useAxios request interceptor!!!");
     return Promise.resolve(data);
   }, null);
 
-  axios.interceptors.response.use(
-    (data) => {
-      console.log("in useAxios response interceptor resolve");
-      return Promise.resolve(data);
-    },
-    (error) => {
-      console.log("in useAxios response interceptor error");
-      return Promise.reject(error);
-    }
-  );
+  axios.interceptors.response.use(null, (error) => {
+    const expectedError = error.response && error.response.status >= 400;
+    if (expectedError) snack("error", error.message);
+    return Promise.reject(error);
+  });
 };
 
 export default useAxios;

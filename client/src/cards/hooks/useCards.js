@@ -9,8 +9,11 @@ import {
   getMyCards,
 } from "../services/cardApiService";
 import useAxios from "../../hooks/useAxios";
+import { useSnackbar } from "../../providers/SnackbarProvider";
 
 const useCards = () => {
+  const snack = useSnackbar();
+
   const [cards, setCards] = useState(null);
   const [card, setCard] = useState(null);
   const [isPending, setPending] = useState(false);
@@ -62,6 +65,7 @@ const useCards = () => {
       setPending(false);
       const card = await creactCard(cardFromClient);
       requestStatus(false, null, null, card);
+      snack("success", "Card was created");
     } catch (error) {
       requestStatus(false, error, null);
     }
@@ -72,6 +76,7 @@ const useCards = () => {
       setPending(false);
       const card = await editCard(cardFromClient);
       requestStatus(false, null, null, card);
+      snack("success", "Card was updated");
     } catch (error) {
       requestStatus(false, error, null);
     }
@@ -81,6 +86,7 @@ const useCards = () => {
     try {
       setPending(false);
       const card = await deleteCard(cardId);
+      snack("success", "Card was deleted");
       return card;
     } catch (error) {
       requestStatus(false, error, null);

@@ -1,10 +1,19 @@
 import React from "react";
 import { node } from "prop-types";
-import Box from "@mui/material/Box";
+import { Paper } from "@mui/material";
+import { useTheme } from "../../providers/ThemeProvider";
 
 const Main = ({ children }) => {
+  const { isDark } = useTheme();
   return (
-    <Box sx={{ backgroundColor: "#e3f2fd", minHeight: "85vh" }}>{children}</Box>
+    <Paper
+      sx={{
+        backgroundColor: isDark ? "#333333" : "#e3f2fd",
+        minHeight: "85vh",
+      }}
+    >
+      {children}
+    </Paper>
   );
 };
 

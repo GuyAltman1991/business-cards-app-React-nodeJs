@@ -15,7 +15,7 @@ const Cards = ({ cards }) => {
   return (
     <Grid container spacing={2} pb={2} sx={{ justifyContent: "space-between" }}>
       {cards.map((card) => (
-        <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={card._id}>
+        <Grid item xs={12} sm={6} md={4} lg={3} xl={3} key={card._id}>
           {" "}
           <CardComponent
             card={card}

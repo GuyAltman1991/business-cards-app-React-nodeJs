@@ -1,0 +1,31 @@
+"Create React Context Provider and usContext": {
+  "prefix": "crc",
+  "body": [
+    "import React, { useState, useContext } from \"react\";",
+    "import { node } from \"prop-types\";",
+    "",
+    "const ${1:ContextName} = React.createContext(null);",
+    "",
+    "export const ${2:ProviderName} = ({ children }) => {",
+    "  const [${3:value}, set${4:Value}] = useState();",
+    "",
+    "  return (",
+    "    <${1:ContextName}.Provider value={{ ${3:value}, set${4:Value} }}>",
+    "      {children}",
+    "    </${1:ContextName}.Provider>",
+    "  );",
+    "};",
+    "",
+    "export const use${5:Name} = () => {",
+    "  const context = useContext(${1:ContextName});",
+    "  if (!context) throw new Error(\"use${5:Name} must be used within a NameProvider\");",
+    "  return context;",
+    "};",
+    "",
+    "${2:ProviderName}.propTypes = {",
+    "  children: node.isRequired,",
+    "};",
+    ""
+  ],
+  "description": "Create React Context Provider and usContext"
+}
