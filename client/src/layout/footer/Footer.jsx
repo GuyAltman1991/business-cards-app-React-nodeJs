@@ -5,9 +5,11 @@ import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../../routes/routesModel";
+import { useUser } from "../../users/providers/UserProvider";
 
 const Footer = () => {
   const navigate = useNavigate();
+  const { user } = useUser();
   return (
     <Paper
       sx={{ position: "sticky", bottom: 0, left: 0, right: 0 }}
@@ -19,16 +21,20 @@ const Footer = () => {
           icon={<Info />}
           onClick={() => navigate(ROUTES.ABOUT)}
         />
-        <BottomNavigationAction
-          label="Favorit"
-          icon={<Favorit />}
-          onClick={() => navigate(ROUTES.FAV_CARDS)}
-        />
-        <BottomNavigationAction
-          label="My Cards"
-          icon={<AccountBoxOutlinedIcon />}
-          onClick={() => navigate(ROUTES.MY_CARDS)}
-        />
+        {user && (
+          <BottomNavigationAction
+            label="Favorit"
+            icon={<Favorit />}
+            onClick={() => navigate(ROUTES.FAV_CARDS)}
+          />
+        )}
+        {user && user.isBusiness && (
+          <BottomNavigationAction
+            label="My Cards"
+            icon={<AccountBoxOutlinedIcon />}
+            onClick={() => navigate(ROUTES.MY_CARDS)}
+          />
+        )}
       </BottomNavigation>
     </Paper>
   );

@@ -5,10 +5,12 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import NavBarLink from "../../../../routes/NavBarLink";
 import ROUTES from "../../../../routes/routesModel";
+import { useUser } from "../../../../users/providers/UserProvider";
+import useUsers from "../../../../users/hooks/useUsers";
 
 const MenuBar = ({ isMenuOpen, anchorEl, onCloseMenu }) => {
-  const user = true;
-  // const user = false
+  const { user } = useUser();
+  const { handleLogout } = useUsers;
 
   return (
     <MuiMenu
@@ -55,7 +57,7 @@ const MenuBar = ({ isMenuOpen, anchorEl, onCloseMenu }) => {
 
       {user && (
         <Box>
-          <MenuItem>Logout</MenuItem>
+          <MenuItem onClick={handleLogout}>Logout</MenuItem>
 
           <NavBarLink to={ROUTES.USER_PROFILE}>
             <MenuItem onClick={onCloseMenu}>Profile</MenuItem>

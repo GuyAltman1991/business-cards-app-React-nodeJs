@@ -1,18 +1,26 @@
 import axios from "axios";
 import { useSnackbar } from "../providers/SnackbarProvider";
+import { useEffect } from "react";
+import { useUser } from "../users/providers/UserProvider";
 
 const useAxios = () => {
   const snack = useSnackbar();
-  axios.interceptors.request.use((data) => {
-    console.log("in useAxios request interceptor!!!");
-    return Promise.resolve(data);
-  }, null);
+  const { token } = useUser();
 
-  axios.interceptors.response.use(null, (error) => {
-    const expectedError = error.response && error.response.status >= 400;
-    if (expectedError) snack("error", error.message);
-    return Promise.reject(error);
-  });
+  useEffect(() => {
+    axios.defaults.headers.common["x-auth-token"] = token;
+    if (snack) {
+      axios.interceptors.request.use((data) => {
+        return Promise.resolve(data);
+      }, null);
+    }
+
+    axios.interceptors.response.use(null, (error) => {
+      const expectedError = error.response && error.response.status >= 400;
+      if (expectedError) snack("error", error.message);
+      return Promise.reject(error);
+    });
+  }, [token, snack]);
 };
 
 export default useAxios;
