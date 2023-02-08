@@ -14,8 +14,7 @@ const MoreButton = () => {
         size="large"
         color="inherit"
         aria-label="menu"
-        sx={{ display: { xs: "inline-flex", md: "none" } }}
-      >
+        sx={{ display: { xs: "inline-flex", md: "none" } }}>
         <MoreVertIcon />
       </IconButton>
     </Box>

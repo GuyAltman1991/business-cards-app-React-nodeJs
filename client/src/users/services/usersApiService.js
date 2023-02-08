@@ -7,14 +7,15 @@ export const login = async (user) => {
     const { data } = await axios.post(`${apiUrl}/users/login`, user);
     return data;
   } catch (error) {
-    Promise.reject(error.message);
+    return Promise.reject(error.message);
   }
 };
+
 export const signup = async (normalizedUser) => {
   try {
     const { data } = await axios.post(`${apiUrl}/users`, normalizedUser);
     return data;
   } catch (error) {
-    Promise.reject(error.message);
+    return Promise.reject(error.message);
   }
 };

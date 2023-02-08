@@ -1,14 +1,13 @@
-import { CardMedia } from "@mui/material";
 import React from "react";
+import CardMedia from "@mui/material/CardMedia";
 import imageType from "../../models/types/imageType";
 
 const CardHead = ({ image }) => {
-  return (
-    <CardMedia component="img" height="194" image={image.url} alt={image.alt} />
-  );
+  const { url, alt } = image;
+  return <CardMedia component="img" height="194" image={url} alt={alt} />;
 };
 
-CardHead.prototype = {
+CardHead.propTypes = {
   image: imageType.isRequired,
 };
 

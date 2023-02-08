@@ -1,4 +1,4 @@
-import { string, shape, number } from "prop-types";
+import { shape, string, number } from "prop-types";
 
 const addressType = shape({
   state: string,

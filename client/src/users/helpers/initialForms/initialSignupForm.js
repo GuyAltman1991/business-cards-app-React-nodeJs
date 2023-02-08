@@ -15,4 +15,5 @@ const initialSignupForm = {
   zip: 0,
   isBusiness: false,
 };
+
 export default initialSignupForm;

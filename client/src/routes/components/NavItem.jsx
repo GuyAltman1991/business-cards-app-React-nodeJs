@@ -1,6 +1,7 @@
 import React from "react";
 import { string, object } from "prop-types";
-import { Button, Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import NavBarLink from "./NavBarLink";
 
 const NavItem = ({ to, label, sx }) => {

@@ -3,14 +3,15 @@ import { string, number, oneOfType } from "prop-types";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 
-const Spinner = ({ color = "primary", size = 40, height = "50vh" }) => {
+const Spinner = ({ color, size, height }) => {
   return (
     <Box
       sx={{
         display: "flex",
         justifyContent: "center",
         minHeight: { height },
-      }}>
+      }}
+    >
       <CircularProgress
         color={color}
         size={size}
@@ -26,4 +27,9 @@ Spinner.propTypes = {
   height: oneOfType([string, number]),
 };
 
+Spinner.defaultProps = {
+  color: "primary",
+  size: 40,
+  height: "50vh",
+};
 export default Spinner;

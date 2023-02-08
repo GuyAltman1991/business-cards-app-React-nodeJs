@@ -1,51 +1,38 @@
-import { CardContent, CardHeader, Divider, Typography } from "@mui/material";
-import { Box } from "@mui/system";
-import React from "react";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import CardHeader from "@mui/material/CardHeader";
+import Box from "@mui/material/Box";
 import cardType from "../../models/types/cardType";
 
 const CardBody = ({ card }) => {
-  const { title, subtitle, phone, address } = card;
+  const { title, subtitle, phone, address, bizNumber } = card;
   const { street, houseNumber, city } = address;
+
   return (
     <CardContent>
-      <CardHeader
-        sx={{ p: 2 }}
-        title={title}
-        subheader={subtitle}
-        component="h2"
-      >
-        forth
-        <Typography sx={{ color: "gray" }}> Subtitle</Typography>
-      </CardHeader>
+      <CardHeader title={title} subheader={subtitle} sx={{ p: 0, mb: 1 }} />
       <Divider />
-
       <Box mt={1}>
         <Typography variant="body2" color="text.secondary">
-          <Typography variant="subtitle" component="strong">
-            {" "}
+          <Typography variant="subtitle1" component="strong">
             Phone:{" "}
           </Typography>
           {phone}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          <Typography variant="subtitle" component="strong">
-            {" "}
-            Address:
-          </Typography>
+          <strong>Address: </strong>
           {street} {houseNumber} {city}
-        </Typography>{" "}
+        </Typography>
         <Typography variant="body2" color="text.secondary">
-          <Typography variant="subtitle" component="strong">
-            Card Number:
-          </Typography>{" "}
-          50000000
-        </Typography>{" "}
+          <strong>Card Number: </strong> {bizNumber}
+        </Typography>
       </Box>
     </CardContent>
   );
 };
 
-CardBody.prototype = {
+CardBody.propTypes = {
   card: cardType.isRequired,
 };
 

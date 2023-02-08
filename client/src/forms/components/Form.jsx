@@ -26,7 +26,8 @@ const Form = ({
       sx={{ mt: 2, p: { xs: 1, sm: 2 }, ...styles }}
       onSubmit={onSubmit}
       autoComplete="off"
-      noValidate>
+      noValidate
+    >
       <Typography align="center" variant="h5" component="h1" mb={2}>
         {title.toUpperCase()}
       </Typography>
@@ -34,6 +35,7 @@ const Form = ({
       <Grid container spacing={spacing}>
         {children}
       </Grid>
+
       <Grid container spacing={1} my={2} direction="row" width="100">
         <Grid item xs={12} sm={6}>
           <FormButton

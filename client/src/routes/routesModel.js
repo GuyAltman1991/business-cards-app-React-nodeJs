@@ -1,15 +1,17 @@
 const ROUTES = {
-  ROOT: "/cards",
-  CARDS: "/cards",
+  ROOT: "/",
   ABOUT: "/about",
-  SANDBOX: "/sandbox",
+  CARDS: "/cards",
   MY_CARDS: "/my-cards",
   FAV_CARDS: "/fav-cards",
+  CARD_DETAILS: "/card-info",
+  CREATE_CARD: "/create-card",
+  EDIT_CARD: "/edit-card",
   SIGNUP: "/signup",
   LOGIN: "/login",
   USER_PROFILE: "/user-info",
   EDIT_USER: "/edit-user",
-  CARD_DETAILS: "/card-info",
+  SANDBOX: "/sandbox",
 };
 
 export default ROUTES;

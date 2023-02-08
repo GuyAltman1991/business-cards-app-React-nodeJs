@@ -1,18 +1,22 @@
 import React, { useState, useContext, useCallback, useMemo } from "react";
+import { node } from "prop-types";
 import {
   createTheme,
   ThemeProvider as MuiThemeProvider,
 } from "@mui/material/styles";
-import { node } from "prop-types";
 
 const ThemeContext = React.createContext(null);
 
 export const ThemeProvider = ({ children }) => {
-  const [isDark, setDark] = useState(false);
+  const [isDark, setDark] = useState();
 
   const toggleDarkMode = useCallback(() => setDark((prev) => !prev), [setDark]);
 
-  const theme = createTheme({ palette: { mode: isDark ? "dark" : "light" } });
+  const theme = createTheme({
+    palette: {
+      mode: isDark ? "dark" : "light",
+    },
+  });
 
   const value = useMemo(() => {
     return { isDark, toggleDarkMode };
@@ -27,12 +31,10 @@ export const ThemeProvider = ({ children }) => {
 
 export const useTheme = () => {
   const context = useContext(ThemeContext);
-  if (!context) throw new Error("useTheme must be used whithin a NameProvider");
+  if (!context) throw new Error("useTheme must be used within a NameProvider");
   return context;
 };
 
-ThemeProvider.prototype = {
+ThemeProvider.propTypes = {
   children: node.isRequired,
 };
-
-export default ThemeProvider;

@@ -54,7 +54,6 @@ router.post("/", auth, async (req, res) => {
     let card = req.body;
     const { _id, isBusiness } = req.user;
     card.user_id = _id;
-
     if (!isBusiness)
       return handleError(
         res,

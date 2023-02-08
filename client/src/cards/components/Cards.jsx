@@ -1,35 +1,25 @@
 import React from "react";
-import CardComponent from "./card/CardComponent";
+import Card from "./card/Card";
 import { Grid } from "@mui/material";
-import { arrayOf } from "prop-types";
+import { arrayOf, func } from "prop-types";
 import cardType from "../models/types/cardType";
 
-const Cards = ({ cards }) => {
-  const handleDeleteCard = (cardId) => {
-    console.log("you deleted card no: " + cardId);
-  };
-  const handleLikeCard = (cardId) => {
-    console.log("you liked card no: " + cardId);
-  };
-
+const Cards = ({ cards, onDelete, onLike }) => {
   return (
-    <Grid container spacing={2} pb={2} sx={{ justifyContent: "space-between" }}>
+    <Grid container spacing={2} pb={2}>
       {cards.map((card) => (
-        <Grid item xs={12} sm={6} md={4} lg={3} xl={3} key={card._id}>
-          {" "}
-          <CardComponent
-            card={card}
-            handleDeleteCard={handleDeleteCard}
-            handleLikeCard={handleLikeCard}
-          />
+        <Grid item xs={12} sm={6} md={4} lg={3} key={card._id}>
+          <Card card={card} onDelete={onDelete} onLike={onLike} />
         </Grid>
       ))}
     </Grid>
   );
 };
 
-Cards.prototype = {
+Cards.propTypes = {
   cards: arrayOf(cardType).isRequired,
+  onDelete: func.isRequired,
+  onLike: func.isRequired,
 };
 
 export default Cards;

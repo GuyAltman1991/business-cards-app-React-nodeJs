@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "@mui/material/Card";
+import MuiCard from "@mui/material/Card";
 import { CardActionArea } from "@mui/material";
 import CardHead from "./CardHead";
 import CardBody from "./CardBody";
@@ -9,31 +9,32 @@ import { func } from "prop-types";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../../../routes/routesModel";
 
-const CardComponent = ({ card, handleDeleteCard, handleLikeCard }) => {
+const Card = ({ card, onDelete, onLike }) => {
   const navigate = useNavigate();
+
   return (
-    <Card sx={{ minWidth: 280, m: 2 }} square variant="outlined">
+    <MuiCard sx={{ minWidth: 280 }}>
       <CardActionArea
-        onClick={() => navigate(`${ROUTES.CARD_DETAILS}/${card.id}`)}
+        onClick={() => navigate(`${ROUTES.CARD_DETAILS}/${card._id}`)}
       >
         <CardHead image={card.image} />
         <CardBody card={card} />
       </CardActionArea>
-
       <CardActionBar
         cardId={card._id}
-        handleDeleteCard={handleDeleteCard}
-        handleLikeCard={handleLikeCard}
+        onDelete={onDelete}
+        onLike={onLike}
         cardUserId={card.user_id}
+        cardLikes={card.likes}
       />
-    </Card>
+    </MuiCard>
   );
 };
 
-Card.prototype = {
+Card.propTypes = {
   card: cardType.isRequired,
-  handleDeleteCard: func.isRequired,
-  handleLikeCard: func.isRequired,
+  onDelete: func.isRequired,
+  onLike: func.isRequired,
 };
 
-export default CardComponent;
+export default Card;

@@ -1,34 +1,36 @@
-import { Container } from "@mui/system";
 import React from "react";
+import Container from "@mui/material/Container";
 import PageHeader from "../components/PageHeader";
-import { Grid } from "@mui/material";
+import Grid from "@mui/material/Grid";
 
 const AboutPage = () => {
   return (
     <Container>
       <PageHeader
         title="About Page"
-        subtitle="On this page you can find explanations about using the application
-"
+        subtitle="On this page you can find explanations about using the application"
       />
 
       <Grid container spacing={2}>
         <Grid item xs={12} md={8} alignSelf="center">
-          repudiandae saepe animi ipsum amet, quisquam quae, cupiditate, nobis
-          itaque quo. Nulla dignissimos corporis quas veritatis, ducimus natus.
-          Rerum ducimus fuga sapiente dolorum voluptate perspiciatis temporibus.
-          Odio facere fugiat voluptatum tempora repellat nesciunt corporis
-          architecto, molestias earum sit quibusdam excepturi blanditiis aliquid
-          alias dicta. Necessitatibus exercitationem eaque facilis! Et provident
-          voluptas dignissimos nesciunt numquam neque illum quo consequatur quam
-          accusamus magnam totam autem aliquid sed laudantium similique, dolores
-          distinctio debitis ipsum pariatur quae nemo? Blanditiis sunt nostrum
-          ipsam? Molestias soluta recusandae assumenda adipisci, possimus
-          veritatis placeat eius doloremque sed odit animi, dicta aliquid quasi.
-          Magnam deleniti impedit explicabo accusamus molestiae, ad optio, ex
-          tenetur dolorum pariatur similique rerum. Sint itaque amet fugiat quo,
-          provident consectetur voluptate nemo quis voluptatibus ipsum aliquid
-          ex aperiam debitis expedita. Eos. Tenetur nostrum dignissimos iure
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut ea quasi
+          magnam rem velit cumque facilis minus iste, similique at placeat
+          adipisci reiciendis! Quibusdam pariatur voluptatibus suscipit,
+          laboriosam earum sint asperiores, est velit voluptatem aspernatur
+          quisquam modi quas, eligendi ad hic! Laborum deserunt quis, atque
+          quam, sapiente maxime repellat voluptatem deleniti obcaecati aperiam
+          ipsum! Iure, saepe! Voluptatibus harum, animi sapiente quas dolore,
+          cum nam adipisci officiis inventore aperiam omnis aut fuga nemo
+          perferendis tenetur? Debitis nihil facere quos? Debitis molestias quae
+          voluptatum. Eius perferendis necessitatibus sed consequatur possimus
+          ipsam odio, eos ab, enim corporis explicabo aspernatur consequuntur
+          saepe quo facilis et voluptatem qui, ut quae! Reiciendis similique
+          exercitationem ipsa. Aliquam quam eum ad, non delectus ducimus soluta
+          numquam, molestiae fugiat sit odit! Repudiandae quaerat deserunt totam
+          praesentium eaque voluptatem pariatur neque porro, accusantium
+          consequuntur, exercitationem quisquam? Itaque praesentium beatae
+          consectetur, quisquam facilis qui laboriosam voluptate maxime
+          cupiditate voluptas et nisi?
         </Grid>
         <Grid
           item

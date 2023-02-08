@@ -1,4 +1,4 @@
-import { useState, useCallback, memo, useMemo } from "react";
+import { useState, useCallback, useMemo } from "react";
 import useAxios from "../../hooks/useAxios";
 import { login, signup } from "../services/usersApiService";
 import {
@@ -18,6 +18,7 @@ const useUsers = () => {
 
   const navigate = useNavigate();
   const { user, setUser, setToken } = useUser();
+
   useAxios();
 
   const requestStatus = useCallback(

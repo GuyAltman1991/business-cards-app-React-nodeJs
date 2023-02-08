@@ -1,4 +1,4 @@
-import { string, shape } from "prop-types";
+import { shape, string } from "prop-types";
 
 const imageType = shape({
   url: string.isRequired,
