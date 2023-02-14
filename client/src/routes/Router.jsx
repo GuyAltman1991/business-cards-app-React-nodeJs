@@ -34,6 +34,7 @@ import UseRefCatchingEl from "../sandbox/hooks/useRef/UseRefCatchingEl";
 import CreateCardPage from "../cards/pages/CreateCardPage";
 import EditCardPage from "../cards/pages/EditCardPage";
 import FavCardsPage from "../cards/pages/FavCardPage";
+import UsersPage from "../users/pages/UsersPage";
 
 const Router = () => {
   return (
@@ -49,6 +50,7 @@ const Router = () => {
       <Route path={`${ROUTES.EDIT_CARD}/:cardId`} element={<EditCardPage />} />
       <Route path={ROUTES.MY_CARDS} element={<MyCardsPage />} />
       <Route path={ROUTES.FAV_CARDS} element={<FavCardsPage />} />
+      <Route path={ROUTES.CRM} element={<UsersPage />} />
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
       <Route path={ROUTES.SIGNUP} element={<SignupPage />} />
       <Route path={ROUTES.SANDBOX} element={<Sandbox />}>

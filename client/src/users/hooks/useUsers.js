@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import useAxios from "../../hooks/useAxios";
 import { login, signup } from "../services/usersApiService";
 import {
@@ -7,7 +7,7 @@ import {
   setTokenInLocalStorage,
 } from "../services/localStorageService";
 import { useUser } from "../providers/UserProvider";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import ROUTES from "../../routes/routesModel";
 import normalizeUser from "../helpers/normalization/normalizeUser";
 
@@ -15,6 +15,27 @@ const useUsers = () => {
   const [users, setUsers] = useState(null);
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [query, setQuery] = useState("");
+  const [filteredUser, setFilter] = useState(null);
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    setQuery(searchParams.get("q") ?? "");
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (users) {
+      setFilter(
+        users.filter(
+          (user) =>
+            user.name.first.includes(query) ||
+            user.name.last.includes(query) ||
+            user.email.includes(query) ||
+            String(user.isBusiness).includes(query)
+        )
+      );
+    }
+  }, [users, query]);
 
   const navigate = useNavigate();
   const { user, setUser, setToken } = useUser();
@@ -66,10 +87,9 @@ const useUsers = () => {
   );
 
   const value = useMemo(
-    () => ({ isLoading, error, user, users }),
-    [isLoading, error, user, users]
+    () => ({ isLoading, error, user, users, filteredUser }),
+    [isLoading, error, user, users, filteredUser]
   );
-
   return {
     value,
     handleLogin,

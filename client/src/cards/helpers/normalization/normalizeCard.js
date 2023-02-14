@@ -1,4 +1,4 @@
-const normalizeCard = card => {
+const normalizeCard = (card) => {
   return {
     title: card.title,
     subtitle: card.subtitle,

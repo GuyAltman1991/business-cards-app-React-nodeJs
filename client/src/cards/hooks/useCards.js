@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import {
   changeLikeStatus,
   createCard,
@@ -10,18 +10,35 @@ import {
 } from "../services/cardApiService";
 import useAxios from "../../hooks/useAxios";
 import { useSnackbar } from "../../providers/SnackbarProvider";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import ROUTES from "../../routes/routesModel";
 import normalizeCard from "../helpers/normalization/normalizeCard";
 import { useUser } from "../../users/providers/UserProvider";
 
 const useCards = () => {
+  const { user } = useUser();
   const [cards, setCards] = useState(null);
   const [card, setCard] = useState(null);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [query, setQuery] = useState("");
+  const [filteredCards, setFilter] = useState(null);
+  const [searchParams] = useSearchParams();
 
-  const { user } = useUser();
+  useEffect(() => {
+    setQuery(searchParams.get("q") ?? "");
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (cards) {
+      setFilter(
+        cards.filter(
+          (card) =>
+            card.title.includes(query) || String(card.bizNumber).includes(query)
+        )
+      );
+    }
+  }, [cards, query]);
 
   const navigate = useNavigate();
   const snack = useSnackbar();
@@ -76,14 +93,14 @@ const useCards = () => {
     } catch (error) {
       requestStatus(false, error, null);
     }
-  });
+  }, []);
 
   const handleCreateCard = useCallback(async (cardFromClient) => {
     try {
       setLoading(true);
       const normalizedCard = normalizeCard(cardFromClient);
       const card = await createCard(normalizedCard);
-      requestStatus(false, null, null, card);
+      requestStatus(false, null, cards, card);
       snack("success", "A new business card has been created");
       navigate(ROUTES.MY_CARDS);
     } catch (error) {
@@ -123,8 +140,8 @@ const useCards = () => {
   }, []);
 
   const value = useMemo(() => {
-    return { isLoading, cards, card, error };
-  }, [isLoading, cards, card, error]);
+    return { isLoading, cards, card, error, filteredCards };
+  }, [isLoading, cards, card, error, filteredCards]);
 
   return {
     value,

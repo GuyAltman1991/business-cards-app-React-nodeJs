@@ -6,7 +6,7 @@ import useCards from "../hooks/useCards";
 
 const CardsPage = () => {
   const { handleGetCards, value, handleDeleteCard } = useCards();
-  const { cards, error, isLoading } = value;
+  const { cards, error, isLoading, filteredCards } = value;
 
   useEffect(() => {
     handleGetCards();
@@ -27,7 +27,7 @@ const CardsPage = () => {
       <CardsFeedback
         isLoading={isLoading}
         error={error}
-        cards={cards}
+        cards={filteredCards}
         onDelete={onDeleteCard}
       />
     </Container>

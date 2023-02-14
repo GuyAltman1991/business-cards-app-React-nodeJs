@@ -31,7 +31,10 @@ export const getMyCards = async () => {
 
 export const createCard = async (card) => {
   try {
+    console.log(card);
     const { data } = await axios.post(`${apiUrl}/cards/`, card);
+    console.log(data);
+
     return data;
   } catch (error) {
     return Promise.reject(error.message);

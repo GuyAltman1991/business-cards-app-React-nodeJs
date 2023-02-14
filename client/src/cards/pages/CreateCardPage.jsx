@@ -32,12 +32,12 @@ const CreateCardPage = () => {
     >
       <CardForm
         title="create card"
+        data={value.data}
         onSubmit={rest.onSubmit}
         onReset={rest.handleReset}
         errors={value.errors}
         onFormChange={rest.validateForm}
         onInputChange={rest.handleChange}
-        data={value.data}
       />
     </Container>
   );
