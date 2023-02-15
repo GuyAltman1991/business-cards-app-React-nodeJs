@@ -50,10 +50,11 @@ const createCard = async (normalizedCard) => {
     try {
       let card = new Card(normalizedCard);
       card = await card.save();
+
       return Promise.resolve(card);
     } catch (error) {
       error.status = 400;
-      return Promise.reject(error);
+      return handleBadRequest("Mongoose", error);
     }
   }
   return Promise.resolve("createCard card not in mongodb");

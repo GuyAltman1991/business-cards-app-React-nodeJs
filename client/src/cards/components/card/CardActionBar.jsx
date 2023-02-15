@@ -20,16 +20,16 @@ const CardActionBar = ({ cardId, onDelete, onLike, cardUserId, cardLikes }) => {
   const { handleLikeCard } = useCards();
   const [isLike, setLike] = useState(() => {
     if (!user) return false;
-    return !!cardLikes.find(id => id === user._id);
+    return !!cardLikes.find((id) => id === user._id);
   });
 
   const handleLike = async () => {
-    setLike(prev => !prev);
+    setLike((prev) => !prev);
     await handleLikeCard(cardId);
     onLike();
   };
 
-  const handleDialog = term => {
+  const handleDialog = (term) => {
     if (term === "open") return setDialog(true);
     setDialog(false);
   };
@@ -43,20 +43,23 @@ const CardActionBar = ({ cardId, onDelete, onLike, cardUserId, cardLikes }) => {
     <>
       <CardActions
         disableSpacing
-        sx={{ paddingTop: 0, justifyContent: "space-between" }}>
+        sx={{ paddingTop: 0, justifyContent: "space-between" }}
+      >
         <Box>
           {user && (user.isAdmin || user._id === cardUserId) && (
             <IconButton
               aria-label="delete card"
-              onClick={() => handleDialog("open")}>
+              onClick={() => handleDialog("open")}
+            >
               <DeleteIcon />
             </IconButton>
           )}
 
-          {user && user._id === cardUserId && (
+          {user && (user.isAdmin || user._id === cardUserId) && (
             <IconButton
               aria-label="edit card"
-              onClick={() => navigate(`${ROUTES.EDIT_CARD}/${cardId}`)}>
+              onClick={() => navigate(`${ROUTES.EDIT_CARD}/:${cardId}`)}
+            >
               <ModeEditIcon />
             </IconButton>
           )}

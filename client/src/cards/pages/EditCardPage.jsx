@@ -32,7 +32,7 @@ const EditCardPage = () => {
   );
 
   useEffect(() => {
-    handleGetCard(cardId).then(data => {
+    handleGetCard(cardId).then((data) => {
       if (user._id !== data.user_id) return navigate(ROUTES.CARDS);
       const modeledCard = mapCardToModel(data);
       rest.setData(modeledCard);
@@ -48,7 +48,8 @@ const EditCardPage = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-      }}>
+      }}
+    >
       <CardForm
         title="edit card"
         onSubmit={rest.onSubmit}

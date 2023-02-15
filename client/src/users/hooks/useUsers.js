@@ -1,6 +1,6 @@
 import { useState, useCallback, useMemo, useEffect } from "react";
 import useAxios from "../../hooks/useAxios";
-import { login, signup } from "../services/usersApiService";
+import { getUsers, login, signup } from "../services/usersApiService";
 import {
   getUser,
   removeToken,

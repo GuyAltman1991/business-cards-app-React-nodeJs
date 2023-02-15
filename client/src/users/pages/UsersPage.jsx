@@ -9,7 +9,7 @@ import { Box } from "@mui/material";
 const UsersPage = () => {
   const { user } = useUser();
   const { value } = useUsers();
-  const { filteredUser, users } = value;
+  const { users } = value;
 
   if (!user || !user.isAdmin) return <Navigate replace to={ROUTES.CARDS} />;
 
