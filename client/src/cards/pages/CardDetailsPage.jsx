@@ -27,7 +27,7 @@ const CardDetailsPage = () => {
       setCardData(modeledCard);
     });
   }, []);
-  console.log(cardData);
+
   return (
     <Container>
       <PageHeader

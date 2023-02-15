@@ -67,13 +67,8 @@ router.post("/", auth, async (req, res) => {
 
     if (error)
       return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
-    console.log(1);
     card = normalizeCard(card, user_id);
-    console.log(2);
-
     card = await createCard(card);
-    console.log(3);
-
     return res.status(201).send(card);
   } catch (error) {
     return handleError(res, error.status || 500, error.message);
