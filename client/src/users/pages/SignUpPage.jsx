@@ -25,10 +25,12 @@ const SignupPage = () => {
     <Container
       sx={{
         paddingTop: 8,
+        mt: 1,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-      }}>
+      }}
+    >
       <UserForm
         title="register form"
         onSubmit={rest.onSubmit}
