@@ -35,6 +35,8 @@ import CreateCardPage from "../cards/pages/CreateCardPage";
 import EditCardPage from "../cards/pages/EditCardPage";
 import FavCardsPage from "../cards/pages/FavCardPage";
 import UsersPage from "../users/pages/UsersPage";
+import UserProfilePage from "../users/pages/UserProfilePage";
+import EditUserPage from "../users/pages/EditUserPage";
 
 const Router = () => {
   return (
@@ -53,6 +55,8 @@ const Router = () => {
       <Route path={ROUTES.CRM} element={<UsersPage />} />
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
       <Route path={ROUTES.SIGNUP} element={<SignupPage />} />
+      <Route path={ROUTES.USER_PROFILE} element={<UserProfilePage />} />
+      <Route path={ROUTES.EDIT_USER} element={<EditUserPage />} />
       <Route path={ROUTES.SANDBOX} element={<Sandbox />}>
         <Route path="logic" element={<CompLogic />} />
         <Route path="use-ref" element={<UseRefSandbox />}>
