@@ -56,7 +56,7 @@ const Router = () => {
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
       <Route path={ROUTES.SIGNUP} element={<SignupPage />} />
       <Route path={ROUTES.USER_PROFILE} element={<UserProfilePage />} />
-      <Route path={ROUTES.EDIT_USER} element={<EditUserPage />} />
+      <Route path={`${ROUTES.EDIT_USER}`} element={<EditUserPage />} />
       <Route path={ROUTES.SANDBOX} element={<Sandbox />}>
         <Route path="logic" element={<CompLogic />} />
         <Route path="use-ref" element={<UseRefSandbox />}>

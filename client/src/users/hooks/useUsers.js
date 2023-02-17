@@ -1,15 +1,22 @@
 import { useState, useCallback, useMemo, useEffect } from "react";
 import useAxios from "../../hooks/useAxios";
-import { getUsers, login, signup } from "../services/usersApiService";
+import {
+  getUsers,
+  login,
+  signup,
+  getUserFromServer,
+  editUser,
+} from "../services/usersApiService";
 import {
   getUser,
   removeToken,
   setTokenInLocalStorage,
 } from "../services/localStorageService";
 import { useUser } from "../providers/UserProvider";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import ROUTES from "../../routes/routesModel";
 import normalizeUser from "../helpers/normalization/normalizeUser";
+import { useSnackbar } from "../../providers/SnackbarProvider";
 
 const useUsers = () => {
   const [users, setUsers] = useState(null);
@@ -18,6 +25,7 @@ const useUsers = () => {
   const [query, setQuery] = useState("");
   const [filteredUser, setFilter] = useState(null);
   const [searchParams] = useSearchParams();
+  const snack = useSnackbar();
 
   useEffect(() => {
     setQuery(searchParams.get("q") ?? "");
@@ -86,6 +94,29 @@ const useUsers = () => {
     [requestStatus, handleLogin]
   );
 
+  const handleUpdateUser = useCallback(async (userId, userFromClient) => {
+    try {
+      setLoading(true);
+      const user = await editUser(userId, userFromClient);
+      requestStatus(false, null, null, user);
+      Navigate(ROUTES.MY_CARDS);
+    } catch (error) {
+      requestStatus(false, error, null);
+    }
+  }, []);
+
+  const handleGetUser = useCallback(async (userId) => {
+    try {
+      setLoading(true);
+      const user = await getUserFromServer(userId);
+      requestStatus(false, null, null, user);
+
+      return user;
+    } catch (error) {
+      requestStatus(false, error, null);
+    }
+  }, []);
+
   const value = useMemo(
     () => ({ isLoading, error, user, users, filteredUser }),
     [isLoading, error, user, users, filteredUser]
@@ -95,6 +126,8 @@ const useUsers = () => {
     handleLogin,
     handleLogout,
     handleSignup,
+    handleGetUser,
+    handleUpdateUser,
   };
 };
 

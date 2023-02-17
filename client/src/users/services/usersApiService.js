@@ -28,3 +28,25 @@ export const getUsers = async () => {
     return Promise.reject(error.message);
   }
 };
+
+export const editUser = async (userId, normalizeUser) => {
+  try {
+    const { data } = await axios.put(
+      `${apiUrl}/users/${userId}`,
+      normalizeUser
+    );
+    console.log(data);
+    return data;
+  } catch (error) {
+    return Promise.reject(error.message);
+  }
+};
+
+export const getUserFromServer = async (userId) => {
+  try {
+    const { data } = await axios.get(`${apiUrl}/users${userId}`);
+    return data;
+  } catch (error) {
+    return Promise.reject(error.message);
+  }
+};
