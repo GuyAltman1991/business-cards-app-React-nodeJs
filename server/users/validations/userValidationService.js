@@ -1,6 +1,6 @@
 const registerValidation = require("./joi/registerValidation");
 const loginValidation = require("./joi/loginValidation");
-const userUpdateValidation = require("./Joi/userUpdateValidation");
+const userUpdateValidation = require("./joi/userUpdateValidation");
 
 const validator = undefined || "Joi";
 
