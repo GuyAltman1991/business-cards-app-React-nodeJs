@@ -1,15 +1,15 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import ROUTES from "./../../routes/routesModel";
+import ROUTES from "../../routes/routesModel";
 import Container from "@mui/material/Container";
 import useForm from "../../forms/hooks/useForm";
-import useUsers from "./../hooks/useUsers";
-import initialSignupForm from "./../helpers/initialForms/initialSignupForm";
+import useUsers from "../hooks/useUsers";
+import initialSignupForm from "../helpers/initialForms/initialSignupForm";
 import { useUser } from "../providers/UserProvider";
 import signupSchema from "../models/joi-schema/signupSchema";
 import UserForm from "../components/UserForm";
 
-const SignupPage = () => {
+const SignUpPage = () => {
   const { handleSignup } = useUsers();
   const { value, ...rest } = useForm(
     initialSignupForm,
@@ -45,4 +45,4 @@ const SignupPage = () => {
   );
 };
 
-export default SignupPage;
+export default SignUpPage;

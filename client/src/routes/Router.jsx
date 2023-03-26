@@ -6,7 +6,7 @@ import AboutPage from "../pages/AboutPage";
 import ErrorPage from "../pages/ErrorPage";
 import Sandbox from "../sandbox/Sandbox";
 import LoginPage from "../users/pages/LoginPage";
-import SignupPage from "../users/pages/SignupPage";
+import SignUpPage from "../users/pages/SignUpPage";
 import CardDetailsPage from "../cards/pages/CardDetailsPage";
 import CompLogic from "../sandbox/CompLogic";
 import MuiSandbox from "../sandbox/mui-sandbox/MuiSandbox";
@@ -53,7 +53,7 @@ const Router = () => {
       <Route path={ROUTES.FAV_CARDS} element={<FavCardsPage />} />
       <Route path={ROUTES.CRM} element={<UsersPage />} />
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
-      <Route path={ROUTES.SIGNUP} element={<SignupPage />} />
+      <Route path={ROUTES.SIGNUP} element={<SignUpPage />} />
       <Route path={ROUTES.USER_PROFILE} element={<UserProfilePage />} />
       <Route path={`${ROUTES.EDIT_USER}`} element={<EditUserPage />} />
       <Route path={ROUTES.SANDBOX} element={<Sandbox />}>
