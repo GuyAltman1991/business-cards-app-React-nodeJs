@@ -1,5 +1,5 @@
 const { use } = require("../routes/usersRestController");
-const userUpdateValidation = require("../validations/Joi/userUpdateValidation");
+const userUpdateValidation = require("../validations/joi/userUpdateValidation");
 const User = require("./mongodb/User");
 const { pick } = require("lodash");
 const normalizeUser = require("../helpers/normalizeUser");
