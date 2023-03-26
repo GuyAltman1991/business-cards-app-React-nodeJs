@@ -1,8 +1,8 @@
-const validateCardWithJoi = require("./Joi/validateCardWithJoi");
+const validateCardWithJoi = require("./joi/validateCardWithJoi");
 
 const validator = undefined || "Joi";
 
-const validateCard = card => {
+const validateCard = (card) => {
   if (validator === "Joi") return validateCardWithJoi(card);
 };
 
