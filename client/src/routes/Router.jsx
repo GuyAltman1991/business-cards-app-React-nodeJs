@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Routes, Route } from "react-router-dom";
 import ROUTES from "./routesModel";
 import CardsPage from "../cards/pages/CardsPage";

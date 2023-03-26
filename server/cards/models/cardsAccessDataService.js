@@ -7,7 +7,6 @@ const getCards = async () => {
   if (DB === "MONGODB") {
     try {
       const cards = await Card.find();
-      //   throw new Error("Opss... i did it again!");
       return Promise.resolve(cards);
     } catch (error) {
       error.status = 404;
@@ -49,6 +48,7 @@ const createCard = async (normalizedCard) => {
   if (DB === "MONGODB") {
     try {
       let card = new Card(normalizedCard);
+
       card = await card.save();
 
       return Promise.resolve(card);

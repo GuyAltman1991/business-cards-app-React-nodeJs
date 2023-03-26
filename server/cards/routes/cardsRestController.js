@@ -52,22 +52,20 @@ router.get("/", async (req, res) => {
 router.post("/", auth, async (req, res) => {
   try {
     let card = req.body;
-    const { _id, isBusiness } = req.user;
-    card.user_id = _id;
-    if (!isBusiness)
+    const user = req.user;
+
+    if (!user.isBusiness)
       return handleError(
         res,
         403,
         "Authorization Error: You must be a Business user to create cards"
       );
 
-    const { user_id } = card;
-
     const { error } = validateCard(card);
 
     if (error)
       return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
-    card = normalizeCard(card, user_id);
+    card = await normalizeCard(card, user._id);
     card = await createCard(card);
     return res.status(201).send(card);
   } catch (error) {
