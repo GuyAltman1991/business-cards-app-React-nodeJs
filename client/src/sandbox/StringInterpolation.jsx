@@ -1,7 +1,7 @@
 import React from "react";
 
 const StringInterpolation = () => {
-  const text = "Hallo";
+  const text = "Hello";
   const obj = { name: "user", age: 1.5 };
   const array = ["one"];
 
