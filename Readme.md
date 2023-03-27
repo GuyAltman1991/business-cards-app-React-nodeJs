@@ -1,12 +1,14 @@
 # business-cards-app
 
  NodeJS + React project
-
-
-to start the nodemon server: /server npm run dev
 ***********************************************
-to start the project display: /client npm start
+1. connect to mongoDB
 
+2. start the server with nodemon: /server npm run dev
+
+3. start the client side:  /client npm start
+
+***********************************************
 Enter as admin user:
 admin@gmail.com
 Aa1234!
