@@ -78,9 +78,7 @@ router.put("/:id", auth, async (req, res) => {
     let card = req.body;
     const { id } = req.params;
     const user = req.user;
-
     const cardData = await Card.findOne({ _id: id });
-
     if (!user.isAdmin && user._id != cardData.user_id) {
       const message =
         "Authorization Error: Only the user who created the business card can update its details";
@@ -93,6 +91,7 @@ router.put("/:id", auth, async (req, res) => {
 
     card = await normalizeCard(card);
     card = await updateCard(id, card);
+
     return res.send(card);
   } catch (error) {
     return handleError(res, error.status || 500, error.message);

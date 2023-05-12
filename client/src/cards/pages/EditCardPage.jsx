@@ -23,13 +23,13 @@ const EditCardPage = () => {
   const { user } = useUser();
   const navigate = useNavigate();
 
-  const { value, ...rest } = useForm(initialCardForm, cardSchema, () =>
+  const { value, ...rest } = useForm(initialCardForm, cardSchema, () => {
     handleUpdateCard(card._id, {
       ...normalizeCard({ ...value.data }),
       bizNumber: card.bizNumber,
       user_id: card.user_id,
-    })
-  );
+    });
+  });
 
   useEffect(() => {
     handleGetCard(cardId).then((data) => {
